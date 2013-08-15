@@ -27,7 +27,7 @@
 		<script type="text/javascript" src="ejercitos/Tropa.js"></script>
 		<script type="text/javascript" src="excepciones/TropasIncompatiblesEx.js"></script>
 		<script type="text/javascript" src="ejercitos/Ejercito.js"></script>
-		
+
 
 		<script type="text/javascript">
 			/*var aragorn = new Hombre(2,2,2,2);
@@ -40,7 +40,25 @@
 			var tierrasBajas = new EnanoFactoria();
 			var mordor = new OrcoFactoria();
 
-			var legolas = helendor.crearCriatura();
+			var ejercitoLibre = null;
+			try {
+				ejercitoLibre = new Ejercito(
+				{
+					'factoria' : helendor,
+					'tropas' : [100,50,20]
+				}, 
+				{
+					'factoria' : tierrasBajas,
+					'tropas' : [50,120]
+				},
+				{
+					'factoria' : mordor,
+					'tropas' : [50,120]
+				});
+			}
+			catch (e if e instanceof TropasIncompatiblesEx) {
+				alert(e.mensaje);
+			}
 		</script>
 	</head>
 

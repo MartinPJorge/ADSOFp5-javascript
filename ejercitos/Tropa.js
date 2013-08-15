@@ -2,7 +2,7 @@
  * Constructor para las tropas.
  *
  * @author Jorge Martin Perez
- * @version 1.0
+ * @version 1.1
  */
 
 
@@ -10,7 +10,7 @@
 
 /**
  * Constructor de tropas.
- * @version 1.0
+ * @version 1.1
  *
  * @param factoria
  * @param numGuerreros
@@ -71,6 +71,18 @@ function Tropa (factoria,numGuerreros) {
 	this.aplicarHeridas = function () {
 		for(var guerrero in guerreros)
 			guerreros[guerrero].aplicarHeridas();
+	}
+
+
+
+	/**
+	 * Aplica las heridas a toda la tropa.
+	 * @version 1.0
+	 *
+	 * @return
+	 */
+	this.toString = function () {
+		// ---- COMPLETAR ----
 	}
 }
 
