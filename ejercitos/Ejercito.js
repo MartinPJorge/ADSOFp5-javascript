@@ -19,19 +19,15 @@
  * @return
  */
 function Ejercito () {
+	if(!checkEjercito())
+		throw new TropasIncompatiblesEx('Tropas de distinto bando.');
+
+
+	// Creamos las tropas
 	var tropas = [];
-	var tipoEjercito = undefined;
-
-
-
-	for (var i = 0; i < arguments.length; i++) {
-		if(i == 0) {
-			var criaturaEjemplo = arguments[i].factoria.crearCriatura();
-			if(A_implementa_B ())
-		}
-
-		arguments[i]
-	}
+	for(var i = 0; i < arguments.length; i++)
+		for (var j = 0; j < arguments[i].tropas.length; j++)
+			tropas.push( new Tropa(arguments[i].factoria,arguments[i].tropas[j]) );
 
 
 

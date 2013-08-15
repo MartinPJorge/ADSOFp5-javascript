@@ -18,13 +18,29 @@
 		<!-- FACTORIAS -->
 		<script type="text/javascript" src="factorias/CriaturaFactoria.js"></script>
 		<script type="text/javascript" src="factorias/ElfoFactoria.js"></script>
+		<script type="text/javascript" src="factorias/EnanoFactoria.js"></script>
+		<script type="text/javascript" src="factorias/HombreFactoria.js"></script>
+		<script type="text/javascript" src="factorias/HuargoFactoria.js"></script>
+		<script type="text/javascript" src="factorias/OrcoFactoria.js"></script>
+
+		<!-- EJERCITOS -->
+		<script type="text/javascript" src="ejercitos/Tropa.js"></script>
+		<script type="text/javascript" src="excepciones/TropasIncompatiblesEx.js"></script>
+		<script type="text/javascript" src="ejercitos/Ejercito.js"></script>
+		
 
 		<script type="text/javascript">
-			var aragorn = new Hombre(2,2,2,2);
+			/*var aragorn = new Hombre(2,2,2,2);
 			var legolas = new Elfo(3,3,3,3);
 			var gimli = new Enano(2,4,2,5);
 
-			alert(A_implementa_B(Enano, Elfo));
+			alert(A_implementa_B(Enano, Elfo));*/
+
+			var helendor = new ElfoFactoria();
+			var tierrasBajas = new EnanoFactoria();
+			var mordor = new OrcoFactoria();
+
+			var legolas = helendor.crearCriatura();
 		</script>
 	</head>
 

@@ -1,0 +1,3 @@
+La versión de cabecera se aumenta en una décima si se añade un nuevo objeto, o si se modifican los constructores u objetos literales.
+
+La versión de una función u objeto literal se sube al añadir funcionalidades, propiedades, o al modificar su lógica.
