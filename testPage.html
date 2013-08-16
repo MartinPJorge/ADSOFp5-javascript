@@ -1,7 +1,9 @@
 <html>
 
 	<head>
+		<meta charset="utf-8" />
 		<title>Prototipos</title>
+		<link rel="stylesheet" type="text/css" href="testPage.css">
 		<script type="text/javascript" src="oop.js"></script>
 
 		<!-- CRIATURAS -->
@@ -28,15 +30,19 @@
 		<script type="text/javascript" src="excepciones/TropasIncompatiblesEx.js"></script>
 		<script type="text/javascript" src="ejercitos/Ejercito.js"></script>
 
+		<!-- BATALLA -->
+		<script type="text/javascript" src="batalla5ejercitos/Batalla.js"></script>
+
+
 
 		<script type="text/javascript">
-			/*var aragorn = new Hombre(2,2,2,2);
+			var aragorn = new Hombre(2,2,2,2);
 			var legolas = new Elfo(3,3,3,3);
 			var gimli = new Enano(2,4,2,5);
 
 			alert(A_implementa_B(Enano, Elfo));*/
 
-			var helendor = new ElfoFactoria();
+			/*var helendor = new ElfoFactoria();
 			var tierrasBajas = new EnanoFactoria();
 			var mordor = new OrcoFactoria();
 
@@ -62,4 +68,56 @@
 		</script>
 	</head>
 
+
+	<body>
+		<h1>Batalla de los 5 ejércitos</h1>
+
+		<canvas width="400" height="300"></canvas>
+		<br/><br/>
+
+		<div></div>
+		<form>
+			<fieldset>
+				<legend>Criaturas libres</legend>
+
+				<label for="criaturasLibres">Criaturas</label>
+				<select name="criaturasLibres" id="criaturasLibres">
+					<option>Elfo</option>
+					<option>Enano</option>
+					<option>Hombre</option>
+				</select><br/><br/>
+				<label for="cantidadLibres">Cantidad</label>
+				<input name="cantidadLibres" id="cantidadLibres" type="text" /><br/><br/>
+
+
+				<span id="tropasLibres"></span><br/><br/>
+
+				<a id="addLibres">Añadir</a>
+
+			</fieldset>
+		</form>
+		<form>
+			<fieldset>
+				<legend>Criaturas oscuras</legend>
+
+				<label for="criaturasOscuras">Criaturas</label>
+				<select name="criaturasOscuras" id="criaturasOscuras">
+					<option>Huargo</option>
+					<option>Orco</option>
+				</select><br/><br/>
+				<label for="cantidadOscuras">Cantidad</label>
+				<input name="cantidadOscuras" id="cantidadOscuras" type="text" /><br/><br/>
+
+
+				<span id="tropasOscuras"></span><br/><br/>
+
+				<a id="addOscuras">Añadir</a>
+			</fieldset>
+		</form><br/>
+
+		<a id="empezar">Empezar</a>
+	</body>	
+
+	<!-- GUI -->
+	<script type="text/javascript" src="batalla5ejercitos/GUI.js"></script>
 </html>

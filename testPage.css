@@ -1,0 +1,54 @@
+body {
+	background-color: #441b1b;
+	color: #fda06d;
+	text-align: center;
+}
+
+h1 {
+	font-size: 50px;
+}
+
+canvas {
+	background-color: green;
+	margin-bottom: 20px;
+	clear: both;
+}
+
+form {
+	display: inline-block;
+}
+
+a#empezar, fieldset > a {
+	position: relative;
+	display: inline-block;
+	padding: 4px;
+	background-color: #774c34;
+	box-shadow: 3px 3px 0 0 #573929;
+	text-decoration: none;
+	color: white;
+	cursor: pointer;
+}
+a#empezar:active, fieldset > a:active {
+	top: 3px;
+	left: 3px;
+	box-shadow: none;
+}
+
+
+fieldset {
+	position: relative;
+	border: 7px #fda06d groove;
+	text-align: left;
+}
+
+fieldset > legend {font-size: 20px;}
+
+fieldset > span {
+	background-color: #e3a07c;
+	color: black;
+	position: relative;
+	display: inline-block;
+	padding: 3%;
+	width: 94%;
+}
+

@@ -106,7 +106,11 @@ var Criatura = {
 		 * @return
 		 */
 		this.atacar = function(oponente) {
-			// Rellenar
+			var dado1 = Math.floor(Math.random()*6)+1;
+			var dado2 = Math.floor(Math.random()*6)+1;
+
+			if(dado1 + ataque > dado2 + oponente.getDefensa())
+				oponente.addHeridas(1);
 		}
 
 		/**

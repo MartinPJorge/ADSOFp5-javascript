@@ -2,7 +2,7 @@
  * Constructor para las tropas.
  *
  * @author Jorge Martin Perez
- * @version 1.1
+ * @version 1.3
  */
 
 
@@ -10,7 +10,7 @@
 
 /**
  * Constructor de tropas.
- * @version 1.1
+ * @version 1.3
  *
  * @param factoria
  * @param numGuerreros
@@ -41,24 +41,20 @@ function Tropa (factoria,numGuerreros) {
 
 	/**
 	 * Realiza un ataque a la tropa oponente.
-	 * @version 1.0
+	 * @version 1.1
 	 *
 	 * @param tropaOponente
 	 * @return
 	 */
 	this.atacar = function (tropaOponente) {
-		/* --- COMPLETAR ---
-		for (var i = 0; i < guerreros.length; i++) {
-			var haAtacado = false, j = 0;
+		var oponentesVivos = tropaOponente.guerrerosVivos();
+		var atacantesVivos = this.guerrerosVivos();
 
-			while( (!haAtacado) && (j < tropaOponente.length) ) {
-				if(!tropaOponente[j].estaMuerto()) {
-					guerreros[i].atacar(tropaOponente[j]);
-					haAtacado = true;
-				}
-				j++;
-			}
-		}*/
+		var j = 0;
+		for (var i = 0; i < this.guerreros.length; i++) {
+			atacantesVivos[i].atacar(oponentesVivos[j]);
+			(j+1) % oponentesVivos.length;
+		}
 	}
 
 
@@ -74,6 +70,52 @@ function Tropa (factoria,numGuerreros) {
 	}
 
 
+	/**
+	 * Devuelve los guerreros vivos.
+	 * @version 1.0
+	 *
+	 * @return guerreros vivos.
+	 */
+	this.guerrerosVivos = function () {
+		var vivos = [];
+		for (var i = 0; i < guerreros.length; i++) {
+			if(!guerreros[i].estaMuerto())
+				vivos.push(guerreros[i]);
+		}
+
+		return vivos;
+	}
+
+
+	/**
+	 * Cuenta los guerreros vivos.
+	 * @version 1.0
+	 *
+	 * @return numero de guerreros vivos.
+	 */
+	this.contarVivos = function () {
+		var vivos = 0;
+		for (var i = 0; i < guerreros.length; i++)
+			if(!guerreros[i].estaMuerto()) vivos++;
+
+		return vivos;
+	}
+
+
+	/**
+	 * Cuenta los guerreros muertos.
+	 * @version 1.0
+	 *
+	 * @return numero de guerreros muertos.
+	 */
+	this.contarMuertos = function () {
+		var muertos = 0;
+		for (var i = 0; i < guerreros.length; i++)
+			if(guerreros[i].estaMuerto()) muertos++;
+
+		return muertos;
+	}
+
 
 	/**
 	 * Aplica las heridas a toda la tropa.
@@ -82,7 +124,20 @@ function Tropa (factoria,numGuerreros) {
 	 * @return
 	 */
 	this.toString = function () {
-		// ---- COMPLETAR ----
+		var tipoCriaturas = '';
+		if(guerreros[0] instanceof Elfo)
+			tipoCriaturas = 'Elfos';
+		else if(guerreros[0] instanceof Enano)
+			tipoCriaturas = 'Enano';
+		else if(guerreros[0] instanceof Hombre)
+			tipoCriaturas = 'Hombre';
+		else if(guerreros[0] instanceof Huargo)
+			tipoCriaturas = 'Huargo';
+		else if(guerreros[0] instanceof Orco)
+			tipoCriaturas = 'Orco';
+
+		return tipoCriaturas + ' | Vivos: ' + this.contarVivos() + 
+		       ' Muertos: ' + this.contarMuertos();
 	}
 }
 
