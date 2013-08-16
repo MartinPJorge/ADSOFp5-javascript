@@ -16,6 +16,7 @@ var cantidadOscuras = document.getElementById('cantidadOscuras');
 var spanTropasOscuras = document.getElementById('tropasOscuras');
 var addTropaOscura = document.getElementById('addOscuras');
 
+var historialBatalla = document.getElementById('historialBatalla');
 var startButton = document.getElementById('empezar');
 
 
@@ -126,7 +127,8 @@ addTropaOscura.addEventListener('click', function (ev) {
 
 
 startButton.addEventListener('click', function (ev) {
-	var pelea = new Batalla(ejercitoLibre,ejercitoOscuro);
+	var pelea = new Batalla(ejercitoLibre,ejercitoOscuro,historialBatalla);
+	pelea.simular();
 }, false);
 
 

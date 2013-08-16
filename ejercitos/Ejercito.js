@@ -2,14 +2,14 @@
  * Constructor para los ejercitos.
  *
  * @author Jorge Martin Perez
- * @version 1.4
+ * @version 1.5
  */
 
 
 
 /**
  * Constructor de ejercitos.
- * @version 1.4
+ * @version 1.5
  *
  * @param objs - objetos con claves 'factoria' y 'tropas', donde
  *               'tropas' es un Array con las cantidades de
@@ -99,8 +99,52 @@ function Ejercito (objs) {
 				);
 		}
 	}
-}
 
+
+	/**
+	 * Determina si el ejercito esta aniquilado.
+	 * @version 1.0
+	 *
+	 * @return true|false
+	 */
+	this.estaAniquilado = function () {
+		var aniquilado = true, i = 0;
+		while((aniquilado) && (i < tropas.length)) {
+			aniquilado = tropas[i].estaAniquilada();
+			i++;
+		}
+
+		return aniquilado;
+	}
+
+
+	/**
+	 * Aplica las heridas a las tropas.
+	 * @version 1.0
+	 *
+	 * @return
+	 */
+	this.aplicarHeridas = function () {
+		for (var i = 0; i < tropas.length; i++)
+			tropas[i].aplicarHeridas();
+	}
+
+
+	/**
+	 * Devuelve la representacion en forma de String del
+	 * ejercito.
+	 * @version 1.0
+	 *
+	 * @return
+	 */
+	this.toString = function () {
+		var cadena = '';
+		for (var i = 0; i < tropas.length; i++)
+			cadena += tropas[i] + '<br/>';
+
+		return cadena;
+	}
+}
 
 
 

@@ -10,7 +10,7 @@ h1 {
 
 canvas {
 	background-color: green;
-	margin-bottom: 20px;
+	margin-bottom: 0;
 	clear: both;
 }
 
@@ -50,5 +50,21 @@ fieldset > span {
 	display: inline-block;
 	padding: 3%;
 	width: 94%;
+}
+
+a#despliega {
+	display: inline-block;
+	padding: 10px;
+	width: 380px;
+	background-color: blue;
+}
+
+p#historialBatalla {
+	display: inline-block;
+	width: 400px;
+	height: 230px;
+	overflow: auto;
+	background-color: white;
+	margin-top: 0;
 }
 

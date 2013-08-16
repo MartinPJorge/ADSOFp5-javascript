@@ -2,7 +2,7 @@
  * Constructor para las tropas.
  *
  * @author Jorge Martin Perez
- * @version 1.3
+ * @version 1.4
  */
 
 
@@ -10,7 +10,7 @@
 
 /**
  * Constructor de tropas.
- * @version 1.3
+ * @version 1.4
  *
  * @param factoria
  * @param numGuerreros
@@ -41,7 +41,7 @@ function Tropa (factoria,numGuerreros) {
 
 	/**
 	 * Realiza un ataque a la tropa oponente.
-	 * @version 1.1
+	 * @version 1.2
 	 *
 	 * @param tropaOponente
 	 * @return
@@ -51,9 +51,9 @@ function Tropa (factoria,numGuerreros) {
 		var atacantesVivos = this.guerrerosVivos();
 
 		var j = 0;
-		for (var i = 0; i < this.guerreros.length; i++) {
+		for (var i = 0; i < atacantesVivos.length; i++) {
 			atacantesVivos[i].atacar(oponentesVivos[j]);
-			(j+1) % oponentesVivos.length;
+			j = (j+1) % oponentesVivos.length;
 		}
 	}
 
@@ -65,8 +65,8 @@ function Tropa (factoria,numGuerreros) {
 	 * @return
 	 */
 	this.aplicarHeridas = function () {
-		for(var guerrero in guerreros)
-			guerreros[guerrero].aplicarHeridas();
+		for (var i = 0; i < guerreros.length; i++)
+			guerreros[i].aplicarHeridas();
 	}
 
 
@@ -118,7 +118,7 @@ function Tropa (factoria,numGuerreros) {
 
 
 	/**
-	 * Aplica las heridas a toda la tropa.
+	 * Devuelve la representacion en forma de String de la tropa.
 	 * @version 1.0
 	 *
 	 * @return
