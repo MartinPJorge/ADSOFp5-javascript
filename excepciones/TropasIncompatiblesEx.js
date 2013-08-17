@@ -13,7 +13,7 @@
  * distintos bandos.
  * @version 1.0
  *
- * @param mensaje - mensaje de la excepcions
+ * @param mensaje - mensaje de la excepcion
  * @return
  */
 function TropasIncompatiblesEx (mensaje) {

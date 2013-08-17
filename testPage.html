@@ -92,9 +92,11 @@
 				<input name="cantidadLibres" id="cantidadLibres" type="text" /><br/><br/>
 
 
-				<span id="tropasLibres"></span><br/><br/>
+				<select name="tropasLibres" class="tropas" id="tropasLibres" size="5"></select>
+				<br/><br/>
 
 				<a id="addLibres">Añadir</a>
+				<a id="borrarLibres">Borrar</a>
 
 			</fieldset>
 		</form>
@@ -111,9 +113,11 @@
 				<input name="cantidadOscuras" id="cantidadOscuras" type="text" /><br/><br/>
 
 
-				<span id="tropasOscuras"></span><br/><br/>
+				<select name="tropasOscuras" class="tropas" id="tropasOscuras" size="5"></select>
+				<br/><br/>
 
 				<a id="addOscuras">Añadir</a>
+				<a id="borrarOscuras">Borrar</a>
 			</fieldset>
 		</form><br/>
 
@@ -121,5 +125,6 @@
 	</body>	
 
 	<!-- GUI -->
+	<script type="text/javascript" src="excepciones/TropaVaciaEx.js"></script>
 	<script type="text/javascript" src="batalla5ejercitos/GUI.js"></script>
 </html>

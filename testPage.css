@@ -43,13 +43,20 @@ fieldset {
 
 fieldset > legend {font-size: 20px;}
 
-fieldset > span {
-	background-color: #e3a07c;
+fieldset > select.tropas {
+	background-color: #6f3131;
+	border: 3px #fda06d groove;
 	color: black;
 	position: relative;
 	display: inline-block;
-	padding: 3%;
-	width: 94%;
+	width: 100%;
+	overflow: scroll;
+}
+select.tropas > option:nth-child(odd) {background-color: #fdc6a9;}
+select.tropas > option:nth-child(even) {background-color: #fda06d;}
+select.tropas > option {
+	padding: 2px;
+	padding-left: 4px;
 }
 
 a#despliega {
