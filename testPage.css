@@ -57,6 +57,7 @@ a#despliega {
 	padding: 10px;
 	width: 380px;
 	background-color: blue;
+	cursor: pointer;
 }
 
 p#historialBatalla {
@@ -66,5 +67,7 @@ p#historialBatalla {
 	overflow: auto;
 	background-color: white;
 	margin-top: 0;
+
+	transition: height 0.2s;
 }
 

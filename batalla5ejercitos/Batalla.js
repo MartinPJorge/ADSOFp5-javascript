@@ -2,7 +2,7 @@
  * Constructor para la batalla.
  *
  * @author Jorge Martin Perez
- * @version 1.1
+ * @version 1.2
  */
 
 
@@ -10,7 +10,7 @@
 
 /**
  * Constructor para la batalla
- * @version 1.0
+ * @version 1.2
  *
  * @return
  */
@@ -66,22 +66,22 @@ function Batalla (libreConstruye,oscuroConstruye,pImprime) {
 	/**
 	 * Imprime en el span del estado de la batalla el estado de
 	 * las tropas de ambos ejercitos.
-	 * @version 1.0
+	 * @version 1.1
 	 *
 	 * @return
 	 */
 	this.printVictoria = function () {
-		var libreVivo = ejercitoLibre.estaAniquilado();
+		var libreVivo = !ejercitoLibre.estaAniquilado();
 
 		pImprime.innerHTML += '<br/><br/>El ejercito ' + 
-		    ( (libreVivo) ? 'libre' : 'oscuro' ) + 'es el' +
+		    ( (libreVivo) ? 'libre' : 'oscuro' ) + ' es el' +
 		    'vencedor';
 	}
 
 
 	/**
 	 * Se encarga de realizar la simulacion de la batalla.
-	 * @version 1.0
+	 * @version 1.1
 	 *
 	 * @return
 	 */
@@ -106,6 +106,7 @@ function Batalla (libreConstruye,oscuroConstruye,pImprime) {
 			             ejercitoOscuro.estaAniquilado();
 		}
 
+		this.printRonda();
 		this.printVictoria();
 	}
 }

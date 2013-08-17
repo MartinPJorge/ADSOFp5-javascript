@@ -16,6 +16,7 @@ var cantidadOscuras = document.getElementById('cantidadOscuras');
 var spanTropasOscuras = document.getElementById('tropasOscuras');
 var addTropaOscura = document.getElementById('addOscuras');
 
+var despliegaHistorial = document.getElementById('despliega');
 var historialBatalla = document.getElementById('historialBatalla');
 var startButton = document.getElementById('empezar');
 
@@ -127,8 +128,19 @@ addTropaOscura.addEventListener('click', function (ev) {
 
 
 startButton.addEventListener('click', function (ev) {
+	spanTropasLibres.innerHTML = spanTropasOscuras.innerHTML = 
+	historialBatalla.innerHTML = '';
 	var pelea = new Batalla(ejercitoLibre,ejercitoOscuro,historialBatalla);
 	pelea.simular();
 }, false);
 
+
+
+// --- Desplegable historial ---
+despliegaHistorial.addEventListener('click', function (ev) {
+	if(historialBatalla.style.height != '0px')
+		historialBatalla.style.height = '0px';
+	else 
+		historialBatalla.style.height = '230px';
+}, false);
 

@@ -2,7 +2,7 @@
  * Constructor de la factoria de huargos.
  *
  * @author Jorge Martin Perez
- * @version 1.0
+ * @version 1.1
  */
 
 
@@ -10,7 +10,7 @@
 
 /**
  * Constructor de la factoria de huargos.
- * @version 1.0
+ * @version 1.1
  */
 function HuargoFactoria () {
 	var ptosVida = 1;
@@ -19,9 +19,16 @@ function HuargoFactoria () {
 	var defensaMin = 2;
 	var defensaMax = 4;
 
+
+	/**
+	 * Crea un huargo.
+	 * @version 1.1
+	 *
+	 * @return huargo
+	 */
 	this.crearCriatura = function () {
-		var ataque = undefined; //__COMPLETAR__
-		var defensa = undefined; //__COMPLETAR__
+		var ataque = this.dadoEntre(ataqueMin,ataqueMax);
+		var defensa = this.dadoEntre(defensaMin,defensaMax);
 
 		return new Huargo(ptosVida,ataque,defensa,0);
 	}
