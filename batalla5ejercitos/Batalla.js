@@ -74,7 +74,7 @@ function Batalla (libreConstruye,oscuroConstruye,pImprime) {
 		var libreVivo = !ejercitoLibre.estaAniquilado();
 
 		pImprime.innerHTML += '<br/><br/>El ejercito ' + 
-		    ( (libreVivo) ? 'libre' : 'oscuro' ) + ' es el' +
+		    ( (libreVivo) ? 'libre' : 'oscuro' ) + ' es el ' +
 		    'vencedor';
 	}
 

@@ -6,6 +6,10 @@
 		<link rel="stylesheet" type="text/css" href="testPage.css">
 		<script type="text/javascript" src="oop.js"></script>
 
+
+		<!-- BOLAS -->
+		<script type="text/javascript" src="bolas/Bola.js"></script>
+
 		<!-- CRIATURAS -->
 		<script type="text/javascript" src="criaturas/Criatura.js"></script>
 		<script type="text/javascript" src="criaturas/CriaturaLibre.js"></script>
@@ -35,47 +39,35 @@
 
 
 
-		<script type="text/javascript">
-			var aragorn = new Hombre(2,2,2,2);
-			var legolas = new Elfo(3,3,3,3);
-			var gimli = new Enano(2,4,2,5);
 
-			alert(A_implementa_B(Enano, Elfo));*/
-
-			/*var helendor = new ElfoFactoria();
-			var tierrasBajas = new EnanoFactoria();
-			var mordor = new OrcoFactoria();
-
-			var ejercitoLibre = null;
-			try {
-				ejercitoLibre = new Ejercito(
-				{
-					'factoria' : helendor,
-					'tropas' : [100,50,20]
-				}, 
-				{
-					'factoria' : tierrasBajas,
-					'tropas' : [50,120]
-				},
-				{
-					'factoria' : mordor,
-					'tropas' : [50,120]
-				});
-			}
-			catch (e if e instanceof TropasIncompatiblesEx) {
-				alert(e.mensaje);
-			}
-		</script>
 	</head>
 
 
 	<body>
 		<h1>Batalla de los 5 ejércitos</h1>
 
-		<canvas width="400" height="300"></canvas><br/>
+		<canvas id="battleScreen" width="400" height="300"></canvas><br/>
 		<a id="despliega">Historial</a><br/>
 		<p id="historialBatalla"></p>
 		<br/><br/>
+
+
+
+		<script type="text/javascript">
+			var canvas = document.getElementById('battleScreen');
+			var ctx = canvas.getContext('2d');
+
+			var bolaAzul = new Bola(200,150,30,'#425cc9','#132470','red','white',100);
+			bolaAzul.dibujar(ctx);
+
+			setTimeout(function () {
+				bolaAzul.parpadear(ctx,20,80);
+			}, 1000);
+
+			
+		</script>
+
+
 
 		<div></div>
 		<form>
