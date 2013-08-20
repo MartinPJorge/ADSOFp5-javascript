@@ -10,7 +10,7 @@
 
 /**
  * Constructor de las bolas que representan las tropas.
- * @version 1.0
+ * @version 1.1
  *
  * @param cx - coord.x del centro
  * @param cy - coord.y del centro
@@ -29,6 +29,39 @@ function Bola (cx,cy,r,colorDentro,colorBorde,
 	var colorDano = colorDano;
 	var colorTexto = colorTexto;
 	var cantidad = cantidad;
+	var bordes = {
+		'arriba' : [cx-r-3, cx+r+3],
+		'derecha' : [cy-r-3, cy+r+3], 
+		'abajo' : [cx-r-3, cx+r+3], 
+		'izquierda' : [cy-r-3, cy+r+3], 
+	};
+
+
+	/**
+	 * Getter de cx.
+	 * @version 1.0
+	 *
+	 * @return cx - coordenada x del centro
+	 */
+	this.getCX = function () { return cx; }
+
+
+	/**
+	 * Getter de cy.
+	 * @version 1.0
+	 *
+	 * @return cy - coordenada y del centro
+	 */
+	this.getCY = function () { return cy; }
+
+
+	/**
+	 * Getter del radio.
+	 * @version 1.0
+	 *
+	 * @return r - radio de la bola
+	 */
+	this.getRadio = function () { return r; }
 
 
 	/**
@@ -62,7 +95,7 @@ function Bola (cx,cy,r,colorDentro,colorBorde,
 		ctx.shadowBlur = 3;
 		ctx.shadowColor = 'black';
 		ctx.font = '20px Times';
-		ctx.fillText(cantidad, cx-7,cy+3);
+		ctx.fillText(cantidad, cx-(String(cantidad).length*5),cy+3);
 		ctx.closePath();
 
 		ctx.restore();
@@ -102,5 +135,31 @@ function Bola (cx,cy,r,colorDentro,colorBorde,
 			cantidad = newCantidad;
 			esto.dibujar(ctx);
 		},100);		
+	}
+
+
+	/**
+	 * Determina si la bola pasada por arumento se solapa con
+	 * esta.
+	 * @version 1.0
+	 *
+	 * @param bola
+	 *
+	 * @return true|false
+	 */
+	this.seSolapaCon = function (bola) {
+		var startX = cx-r-3;
+		var endX = cx+r+3;
+		var startY = cy-r-3;
+		var endY = cy+r+3;
+
+		var startX2 = bola.getCX()-bola.getRadio()-3;
+		var endX2 = bola.getCX()+bola.getRadio()+3;
+		var startY2 = bola.getCY()-bola.getRadio()-3;
+		var endY2 = bola.getCY()+bola.getRadio()+3;
+
+		// -----------------------------
+		// --- DECIDIR SI SE SOLAPAN ---
+		// -----------------------------
 	}
 }
