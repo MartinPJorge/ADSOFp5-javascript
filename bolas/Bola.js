@@ -2,7 +2,7 @@
  * Constructor de las bolas que representan las tropas.
  *
  * @author Jorge Martin Perez
- * @version 1.8
+ * @version 2.2
  */
 
 
@@ -10,7 +10,7 @@
 
 /**
  * Constructor de las bolas que representan las tropas.
- * @version 1.8
+ * @version 2.2
  *
  * @param cx - coord.x del centro
  * @param cy - coord.y del centro
@@ -62,6 +62,26 @@ function Bola (cx,cy,r,colorDentro,colorBorde,
 	 * @return r - radio de la bola
 	 */
 	this.getRadio = function () { return r; }
+
+
+	/**
+	 * Getter del radio.
+	 * @version 1.0
+	 *
+	 * @param limite - 'arriba'|'derecha'|'abajo'|'izquierda'
+	 *
+	 * @return limiteRet - la coordenada correspondiente
+	 *                     al limite.
+	 */
+	this.getLimite = function (limite) {
+		var limiteRet = undefined;
+		if(limite == 'arriba') limiteRet = cy-r-3;
+		else if(limite == 'derecha') limiteRet = cx+r+3;
+		else if(limite == 'abajo') limiteRet = cy+r+3;
+		else if(limite == 'izquierda') limiteRet = cx-r-3;
+
+		return limiteRet;
+	}
 
 
 	/**
@@ -237,24 +257,23 @@ function Bola (cx,cy,r,colorDentro,colorBorde,
 
 
 	/**
-	 * Determina si se puede pegar la bola pasada por argumento.
-	 * @version 1.0
+	 * Obtiene los lados en los que se puede pegar la bola
+	 * pasada por argumento.
+	 * @version 1.1
 	 *
 	 * @param bola
 	 *
-	 * @return true|false
+	 * @return ['arriba','derecha','abajo','derecha']
 	 */
 	this.sePuedePegar = function (bola) {
-		var bordes = bola.getBordes();
 		var lado = 2 * (bola.getRadio() + 3);
-		var sePuedePegar = false;
+		var dondeSePega = [];
 
-		for(var key in bordes) {
-			sePuedePegar = sePuedePegar ||
-			(lado <= (bordes[key][1] - bordes[key][0]));
-		}
+		for(var key in bordes)
+			if(lado <= (bordes[key][1] - bordes[key][0])
+				dondeSePega.push(key);
 
-		return sePuedePegar;
+		return dondeSePega;
 	}
 
 
@@ -334,5 +353,83 @@ function Bola (cx,cy,r,colorDentro,colorBorde,
 
 				break;
 			}
+	}
+
+
+	/**
+	 * Pega la bola pasada por argumento al borde que hayamos
+	 * especificado para la bola del ambito.
+	 * [Comment] - se supone que antes se ha comprobado que se
+	 *             puede efectuar el pegado.
+	 * @version 1.0
+	 *
+	 * @param bola
+	 * @param borde - 'arriba'|'derecha'|'abajo'|'derecha'
+	 *
+	 * @return
+	 */
+	this.pegarEnBorde = function(bola,borde) {
+		var lado = 2 * (bola.getRadio() + 3);
+
+		if(borde == 'arriba') {
+			bola.setBorde('abajo', [bordes[key][0],bordes[key][0]]);
+			bola.setCX(bordes[key][0]+3+bola.getRadio());
+			bola.setCY(cy-r-3 -3-bola.getRadio());
+			bordes[key][0] += lado;
+		}
+		else if(borde == 'derecha') {
+			bola.setBorde('izquierda', [bordes[key][0],bordes[key][0]]);
+			bola.setCX(cx+r+3 +3+bola.getRadio());
+			bola.setCY(bordes[key][0]+3+bola.getRadio());
+			bordes[key][0] += lado;
+		}
+		else if(borde == 'abajo') {
+			bola.setBorde('arriba', [bordes[key][0],bordes[key][0]]);
+			bola.setCX(bordes[key][0]+3+bola.getRadio());
+			bola.setCY(cy+r+3 +3+bola.getRadio());
+			bordes[key][0] += lado;
+		}
+		else { //'izquierda'
+			bola.setBorde('derecha', [bordes[key][0],bordes[key][0]]);
+			bola.setCX(cx-r-3 -3-bola.getRadio());
+			bola.setCY(bordes[key][0]+3+bola.getRadio());
+			bordes[key][0] += lado;
+		}
+	}
+
+
+	/**
+	 * Pega la bola pasada por argumento al borde que hayamos
+	 * especificado para la bola del ambito. Pero la bola del
+	 * ambito, y la pasada por argumento no actualizan su 
+	 * entorno ocupado.
+	 * [Comment] - se supone que antes se ha comprobado que se
+	 *             puede efectuar el pegado.
+	 * @version 1.0
+	 *
+	 * @param bola
+	 * @param borde - 'arriba'|'derecha'|'abajo'|'derecha'
+	 *
+	 * @return
+	 */
+	this.pegarVirtualEnBorde = function(bola,borde) {
+		var lado = 2 * (bola.getRadio() + 3);
+		
+		if(borde == 'arriba') {
+			bola.setCX(bordes[key][0]+3+bola.getRadio());
+			bola.setCY(cy-r-3 -3-bola.getRadio());
+		}
+		else if(borde == 'derecha') {
+			bola.setCX(cx+r+3 +3+bola.getRadio());
+			bola.setCY(bordes[key][0]+3+bola.getRadio());
+		}
+		else if(borde == 'abajo') {
+			bola.setCX(bordes[key][0]+3+bola.getRadio());
+			bola.setCY(cy+r+3 +3+bola.getRadio());
+		}
+		else { //'izquierda'
+			bola.setCX(cx-r-3 -3-bola.getRadio());
+			bola.setCY(bordes[key][0]+3+bola.getRadio());
+		}
 	}
 }

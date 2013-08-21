@@ -2,7 +2,7 @@
  * Constructor para las tropas.
  *
  * @author Jorge Martin Perez
- * @version 1.4
+ * @version 1.5
  */
 
 
@@ -10,7 +10,7 @@
 
 /**
  * Constructor de tropas.
- * @version 1.4
+ * @version 1.5
  *
  * @param factoria
  * @param numGuerreros
@@ -20,6 +20,38 @@ function Tropa (factoria,numGuerreros) {
 	var guerreros = [];
 	for(var i = 0; i < numGuerreros; i++)
 		guerreros.push( factoria.crearCriatura() );
+
+	var bola = undefined;
+	if(factoria instanceof ElfoFactoria) { 
+		bola = new Bola(0,0,0,'#425cc9','#132470','red',
+			'white',guerreros.length);
+	}
+	else if(factoria instanceof EnanoFactoria) {
+		bola = new Bola(0,0,0,'#425cc9','#132470','red',
+			'white',guerreros.length);
+	}
+	else if(factoria instanceof HombreFactoria) {
+		bola = new Bola(0,0,0,'#425cc9','#132470','red',
+			'white',guerreros.length);
+	}
+	else if(factoria instanceof OrcoFactoria) {
+		bola = new Bola(0,0,0,'#425cc9','#132470','red',
+			'white',guerreros.length);
+	}
+	else if(factoria instanceof HuargoFactoria) {
+		bola = new Bola(0,0,0,'#425cc9','#132470','red',
+			'white',guerreros.length);
+	}
+
+
+
+	/**
+	 * Getter de la bola de la tropa.
+	 * @version 1.0
+	 *
+	 * @return la bola que representa la tropa
+	 */
+	this.getBola = function () { return bola; }
 
 
 	/**

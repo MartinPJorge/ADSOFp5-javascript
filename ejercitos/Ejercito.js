@@ -2,14 +2,14 @@
  * Constructor para los ejercitos.
  *
  * @author Jorge Martin Perez
- * @version 1.5
+ * @version 1.6
  */
 
 
 
 /**
  * Constructor de ejercitos.
- * @version 1.5
+ * @version 1.6
  *
  * @param objs - objetos con claves 'factoria' y 'tropas', donde
  *               'tropas' es un Array con las cantidades de
@@ -65,6 +65,22 @@ function Ejercito (objs) {
 	 * @return tropas
 	 */
 	this.getTropas = function () { return tropas; }
+
+
+	/**
+	 * Obtiene las bolas que representan a las tropas del
+	 * ejercito.
+	 * @version 1.0
+	 *
+	 * @return bolas de las tropas
+	 */
+	this.getBolas = function () {
+		var bolas = [];
+		for (var i = 0; i < tropas.length; i++)
+			bolas.append(tropas[i].getBola());
+
+		return bolas;
+	}
 
 
 	/**
