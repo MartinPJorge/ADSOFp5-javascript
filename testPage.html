@@ -57,14 +57,30 @@
 			var canvas = document.getElementById('battleScreen');
 			var ctx = canvas.getContext('2d');
 
-			var bolaAzul = new Bola(200,150,30,'#425cc9','#132470','red','white',100);
+			/*var bolaAzul = new Bola(200,150,30,'#425cc9','#132470','red','white',100);
 			bolaAzul.dibujar(ctx);
 
 			setTimeout(function () {
 				bolaAzul.parpadear(ctx,20,80);
-			}, 1000);
+			}, 1000);*/
+	
 
-			
+			var bola1 = new Bola(200,150,30,'#425cc9','#132470','red','white',100);
+			var bola2 = new Bola(0,0,30,'#425cc9','#132470','red','white',100);
+			var bola3 = new Bola(0,0,10,'#425cc9','#132470','red','white',100);
+			var bola4 = new Bola(0,0,20,'#425cc9','#132470','red','white',100);
+			var bola5 = new Bola(0,0,10,'#425cc9','#132470','red','white',100);
+
+			bola1.pegar(bola2);
+			bola1.pegar(bola3);
+			bola1.pegar(bola4);
+			bola1.pegar(bola5);
+			//alert(bola1.sePuedePegar(bola2));
+			bola1.dibujar(ctx);
+			bola2.dibujar(ctx);
+			bola3.dibujar(ctx);
+			bola4.dibujar(ctx);
+			bola5.dibujar(ctx);
 		</script>
 
 
