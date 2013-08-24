@@ -77,7 +77,7 @@ function Ejercito (objs) {
 	this.getBolas = function () {
 		var bolas = [];
 		for (var i = 0; i < tropas.length; i++)
-			bolas.append(tropas[i].getBola());
+			bolas.push(tropas[i].getBola());
 
 		return bolas;
 	}

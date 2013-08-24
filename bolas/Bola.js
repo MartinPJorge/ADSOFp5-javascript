@@ -270,7 +270,7 @@ function Bola (cx,cy,r,colorDentro,colorBorde,
 		var dondeSePega = [];
 
 		for(var key in bordes)
-			if(lado <= (bordes[key][1] - bordes[key][0])
+			if(lado <= (bordes[key][1] - bordes[key][0]))
 				dondeSePega.push(key);
 
 		return dondeSePega;
@@ -433,3 +433,4 @@ function Bola (cx,cy,r,colorDentro,colorBorde,
 		}
 	}
 }
+

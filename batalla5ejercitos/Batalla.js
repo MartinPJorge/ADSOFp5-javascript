@@ -2,7 +2,7 @@
  * Constructor para la batalla.
  *
  * @author Jorge Martin Perez
- * @version 1.2
+ * @version 1.3
  */
 
 
@@ -10,29 +10,41 @@
 
 /**
  * Constructor para la batalla
- * @version 1.2
+ * @version 1.3
  *
  * @return
  */
-function Batalla (libreConstruye,oscuroConstruye,pImprime) {
+function Batalla (libreConstruye,oscuroConstruye,pImprime,canvas) {
 	var ejercitoLibre = null, ejercitoOscuro = null;
 	var libreConstruye = libreConstruye;
 	var oscuroConstruye = oscuroConstruye;
 	var pImprime = pImprime;
 	var ronda = 0;
+	var distribuidor = new Distribuidor(canvas);
 
 	/**
 	 * Crea el ejercito especificado.
-	 * @version 1.0
+	 * @version 1.1
 	 *
 	 * @param tipo - 'libre'|'oscuro' 
 	 * @return
 	 */
 	this.crearEjercito = function (tipo) {
-		if(tipo == 'libre')
+		if(tipo == 'libre') {
 			ejercitoLibre = new Ejercito(libreConstruye);
-		else
+
+			distribuidor.setBolas(ejercitoLibre.getBolas());
+			distribuidor.setLimites(0, canvas.width / 2);
+			distribuidor.distribuirBolas();
+		}
+		else {
 			ejercitoOscuro = new Ejercito(oscuroConstruye);
+
+			distribuidor.setBolas(ejercitoOscuro.getBolas());
+			distribuidor.setLimites(
+				canvas.width / 2, canvas.width);
+			distribuidor.distribuirBolas();
+		}
 	}
 
 

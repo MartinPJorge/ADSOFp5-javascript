@@ -18,7 +18,7 @@
  */
 function Distribuidor(canvas) {
 	var bolas = [];
-	var limites = {
+	var limites = {        
 		'izquierda' : undefined,
 		'derecha' : undefined
 	}

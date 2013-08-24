@@ -22,6 +22,8 @@ var despliegaHistorial = document.getElementById('despliega');
 var historialBatalla = document.getElementById('historialBatalla');
 var startButton = document.getElementById('empezar');
 
+var canvas = document.getElementById('battleScreen');
+
 
 
 /* Estas 2 variables contienen un array de objetos de tipo:
@@ -219,7 +221,7 @@ borrarTropaOscura.addEventListener('click', function (ev) {
 startButton.addEventListener('click', function (ev) {
 	selectTropasLibres.innerHTML = selectTropasOscuras.innerHTML = 
 	historialBatalla.innerHTML = '';
-	var pelea = new Batalla(ejercitoLibre,ejercitoOscuro,historialBatalla);
+	var pelea = new Batalla(ejercitoLibre,ejercitoOscuro,historialBatalla,canvas);
 	pelea.simular();
 }, false);
 
