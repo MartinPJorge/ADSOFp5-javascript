@@ -2,7 +2,7 @@
  * Constructor para las tropas.
  *
  * @author Jorge Martin Perez
- * @version 1.5
+ * @version 1.6
  */
 
 
@@ -10,7 +10,7 @@
 
 /**
  * Constructor de tropas.
- * @version 1.5
+ * @version 1.6
  *
  * @param factoria
  * @param numGuerreros
@@ -20,26 +20,32 @@ function Tropa (factoria,numGuerreros) {
 	var guerreros = [];
 	for(var i = 0; i < numGuerreros; i++)
 		guerreros.push( factoria.crearCriatura() );
+	
+
+	// Tamano de la bola que representa la tropa
+	var ballSize = numGuerreros * 5;
+	if(ballSize < 10) ballSize = 10;
+	else if(ballSize > 70) ballSize = 70; 
 
 	var bola = undefined;
 	if(factoria instanceof ElfoFactoria) { 
-		bola = new Bola(0,0,0,'#425cc9','#132470','red',
+		bola = new Bola(0,0,ballSize,'#425cc9','#132470','red',
 			'white',guerreros.length);
 	}
 	else if(factoria instanceof EnanoFactoria) {
-		bola = new Bola(0,0,0,'#425cc9','#132470','red',
+		bola = new Bola(0,0,ballSize,'#425cc9','#132470','red',
 			'white',guerreros.length);
 	}
 	else if(factoria instanceof HombreFactoria) {
-		bola = new Bola(0,0,0,'#425cc9','#132470','red',
+		bola = new Bola(0,0,ballSize,'#425cc9','#132470','red',
 			'white',guerreros.length);
 	}
 	else if(factoria instanceof OrcoFactoria) {
-		bola = new Bola(0,0,0,'#425cc9','#132470','red',
+		bola = new Bola(0,0,ballSize,'#425cc9','#132470','red',
 			'white',guerreros.length);
 	}
 	else if(factoria instanceof HuargoFactoria) {
-		bola = new Bola(0,0,0,'#425cc9','#132470','red',
+		bola = new Bola(0,0,ballSize,'#425cc9','#132470','red',
 			'white',guerreros.length);
 	}
 
@@ -99,6 +105,7 @@ function Tropa (factoria,numGuerreros) {
 	this.aplicarHeridas = function () {
 		for (var i = 0; i < guerreros.length; i++)
 			guerreros[i].aplicarHeridas();
+		bola.parpadear(ctx,bola.getRadio()-1,this.contarVivos());
 	}
 
 

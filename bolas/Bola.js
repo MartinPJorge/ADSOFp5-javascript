@@ -2,7 +2,7 @@
  * Constructor de las bolas que representan las tropas.
  *
  * @author Jorge Martin Perez
- * @version 2.2
+ * @version 2.5
  */
 
 
@@ -10,7 +10,7 @@
 
 /**
  * Constructor de las bolas que representan las tropas.
- * @version 2.2
+ * @version 2.5
  *
  * @param cx - coord.x del centro
  * @param cy - coord.y del centro
@@ -95,24 +95,32 @@ function Bola (cx,cy,r,colorDentro,colorBorde,
 
 	/**
 	 * Setter de cx.
-	 * @version 1.0
+	 * @version 1.1
 	 *
 	 * @param newCX
 	 *
 	 * @return
 	 */
-	this.setCX = function (newCX) { cx = newCX; }
+	this.setCX = function (newCX) {
+		cx = newCX;
+		bordes.arriba[0] = bordes.abajo[0] = cx-r-3;
+		bordes.arriba[1] = bordes.abajo[1] = cx+r+3;
+	}
 
 
 	/**
 	 * Setter de cy.
-	 * @version 1.0
+	 * @version 1.1
 	 *
 	 * @param newCY
 	 *
 	 * @return
 	 */
-	this.setCY = function (newCY) { cy = newCY; }
+	this.setCY = function (newCY) {
+		cy = newCY;
+		bordes.izquierda[0] = bordes.derecha[0] = cy-r-3;
+		bordes.izquierda[1] = bordes.derecha[1] = cy+r+3;
+	}
 
 
 	/**
@@ -372,28 +380,28 @@ function Bola (cx,cy,r,colorDentro,colorBorde,
 		var lado = 2 * (bola.getRadio() + 3);
 
 		if(borde == 'arriba') {
-			bola.setBorde('abajo', [bordes[key][0],bordes[key][0]]);
-			bola.setCX(bordes[key][0]+3+bola.getRadio());
+			bola.setBorde('abajo', [bordes[borde][0],bordes[borde][0]]);
+			bola.setCX(bordes[borde][0]+3+bola.getRadio());
 			bola.setCY(cy-r-3 -3-bola.getRadio());
-			bordes[key][0] += lado;
+			bordes[borde][0] += lado;
 		}
 		else if(borde == 'derecha') {
-			bola.setBorde('izquierda', [bordes[key][0],bordes[key][0]]);
+			bola.setBorde('izquierda', [bordes[borde][0],bordes[borde][0]]);
 			bola.setCX(cx+r+3 +3+bola.getRadio());
-			bola.setCY(bordes[key][0]+3+bola.getRadio());
-			bordes[key][0] += lado;
+			bola.setCY(bordes[borde][0]+3+bola.getRadio());
+			bordes[borde][0] += lado;
 		}
 		else if(borde == 'abajo') {
-			bola.setBorde('arriba', [bordes[key][0],bordes[key][0]]);
-			bola.setCX(bordes[key][0]+3+bola.getRadio());
+			bola.setBorde('arriba', [bordes[borde][0],bordes[borde][0]]);
+			bola.setCX(bordes[borde][0]+3+bola.getRadio());
 			bola.setCY(cy+r+3 +3+bola.getRadio());
-			bordes[key][0] += lado;
+			bordes[borde][0] += lado;
 		}
 		else { //'izquierda'
-			bola.setBorde('derecha', [bordes[key][0],bordes[key][0]]);
+			bola.setBorde('derecha', [bordes[borde][0],bordes[borde][0]]);
 			bola.setCX(cx-r-3 -3-bola.getRadio());
-			bola.setCY(bordes[key][0]+3+bola.getRadio());
-			bordes[key][0] += lado;
+			bola.setCY(bordes[borde][0]+3+bola.getRadio());
+			bordes[borde][0] += lado;
 		}
 	}
 
@@ -405,7 +413,7 @@ function Bola (cx,cy,r,colorDentro,colorBorde,
 	 * entorno ocupado.
 	 * [Comment] - se supone que antes se ha comprobado que se
 	 *             puede efectuar el pegado.
-	 * @version 1.0
+	 * @version 1.1
 	 *
 	 * @param bola
 	 * @param borde - 'arriba'|'derecha'|'abajo'|'derecha'
@@ -416,20 +424,20 @@ function Bola (cx,cy,r,colorDentro,colorBorde,
 		var lado = 2 * (bola.getRadio() + 3);
 		
 		if(borde == 'arriba') {
-			bola.setCX(bordes[key][0]+3+bola.getRadio());
+			bola.setCX(bordes[borde][0]+3+bola.getRadio());
 			bola.setCY(cy-r-3 -3-bola.getRadio());
 		}
 		else if(borde == 'derecha') {
 			bola.setCX(cx+r+3 +3+bola.getRadio());
-			bola.setCY(bordes[key][0]+3+bola.getRadio());
+			bola.setCY(bordes[borde][0]+3+bola.getRadio());
 		}
 		else if(borde == 'abajo') {
-			bola.setCX(bordes[key][0]+3+bola.getRadio());
+			bola.setCX(bordes[borde][0]+3+bola.getRadio());
 			bola.setCY(cy+r+3 +3+bola.getRadio());
 		}
 		else { //'izquierda'
 			bola.setCX(cx-r-3 -3-bola.getRadio());
-			bola.setCY(bordes[key][0]+3+bola.getRadio());
+			bola.setCY(bordes[borde][0]+3+bola.getRadio());
 		}
 	}
 }

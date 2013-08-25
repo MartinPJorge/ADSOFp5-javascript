@@ -2,7 +2,7 @@
  * Constructor del distribuidor de bolas.
  *
  * @author Jorge Martin Perez
- * @version 1.1
+ * @version 1.3
  */
 
 
@@ -10,7 +10,7 @@
 
 /**
  * Constructor del distribuidor de bolas.
- * @version 1.1
+ * @version 1.3
  *
  * @param canvas
  *
@@ -68,6 +68,7 @@ function Distribuidor(canvas) {
 	 */
 	this.bolaDentro = function(bola) {
 		var estaDentro = false;
+		
 		if((bola.getLimite('arriba') >= 0) &&
 			(bola.getLimite('derecha') <= limites.derecha) && 
 			(bola.getLimite('abajo') <= canvas.height) &&
@@ -95,7 +96,7 @@ function Distribuidor(canvas) {
 			if(bola == bolas[i])
 				paro = true;
 			else {
-				if(bola[i].seSolapaCon(bola)) {
+				if(bolas[i].seSolapaCon(bola)) {
 					seSolapa = true;
 					paro = true;
 				}
@@ -108,10 +109,10 @@ function Distribuidor(canvas) {
 	}
 
 
-	/**  -------- ES UNA BOBADA --------
+	/**
 	 * Determina si la bola pasada por argumento se puede pegar
 	 * a alguna de las anteriores bolas del array.
-	 * @version 1.0
+	 * @version 1.1
 	 *
 	 * @param bola
 	 *
@@ -119,25 +120,34 @@ function Distribuidor(canvas) {
 	 */
 	this.sePuedePegarBola = function(bola) {
 		var sePuedePegar = false, paro = false;
-		var i = 0;
+		var i = 0, esto = this;
 
 		while (!paro) {
 			if(bolas[i] == bola)
 				paro = true;
 			else {
-				if(bolas[i].sePuedePegar(bola)) {
-					sePuedePegar = true;
-					paro = true;
+				var bordesAPegar = bolas[i].sePuedePegar(bola);
+				for (var j = 0; j < bordesAPegar.length; j++) {
+					bolas[i].pegarVirtualEnBorde(
+						bola,bordesAPegar[j]);
+					if(esto.bolaDentro(bola)) {
+						sePuedePegar = true;
+						paro = true;
+						break;
+					}
 				}
-				else
-					i++;
+
+				i++;
 			}
 		}
+
+		return sePuedePegar;
 	}
 
 
 	/**
-	 * Coloca la bola pasada por argumento.
+	 * Coloca la bola pasada por argumento, y en caso de que no
+	 * entre alarga el canvas.
 	 * @version 1.0
 	 *
 	 * @param bola
@@ -155,15 +165,15 @@ function Distribuidor(canvas) {
 			canvas.height += 4 * (bola.getRadius()+3);
 
 		while(!pegada && (i < indiceBola)) {
-			var posiblesBordes = bola[i].sePuedePegar(bola);
+			var posiblesBordes = bolas[i].sePuedePegar(bola);
 
-			// Buscamos entre os bordes donde se puede pegar.
-			for(var borde in posiblesBordes) {
-				bola[i].pegarVirtualEnBorde(bola,borde);
+			// Buscamos entre los bordes donde se puede pegar.
+			for(var j = 0; j < posiblesBordes.length; j++) {
+				bolas[i].pegarVirtualEnBorde(bola,posiblesBordes[j]);
 
 				if(!esto.seSolapaBolaConAnteriores(bola) &&
 					esto.bolaDentro(bola)) {
-					bola[i].pegarEnBorde(bola,borde);
+					bolas[i].pegarEnBorde(bola,posiblesBordes[j]);
 					pegada = true;
 					break;
 				}
@@ -176,8 +186,8 @@ function Distribuidor(canvas) {
 
 	/**
 	 * Se encarga de situar las bolas entre los limites,
-	 * y ademas se encarga de alargar el canvas si es necesario.
-	 * @version 1.0
+	 * y de dibujar las bolas.
+	 * @version 1.1
 	 *
 	 * @return
 	 */
@@ -191,8 +201,11 @@ function Distribuidor(canvas) {
 			}
 
 			else {
-				esto.colocarBola(bolas[i]);
+				esto.colocarBola(bolas[i],i);
 			}
 		}
+
+		for (var i = 0; i < bolas.length; i++)
+			bolas[i].dibujar(ctx);
 	}
 }
