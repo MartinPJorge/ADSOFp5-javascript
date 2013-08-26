@@ -29,7 +29,7 @@ function Tropa (factoria,numGuerreros) {
 
 	var bola = undefined;
 	if(factoria instanceof ElfoFactoria) { 
-		bola = new Bola(0,0,ballSize,'#425cc9','#132470','red',
+		bola = new Bola(0,0,ballSize,'#8aa42f','#4c5e0d','red',
 			'white',guerreros.length);
 	}
 	else if(factoria instanceof EnanoFactoria) {
@@ -37,15 +37,15 @@ function Tropa (factoria,numGuerreros) {
 			'white',guerreros.length);
 	}
 	else if(factoria instanceof HombreFactoria) {
-		bola = new Bola(0,0,ballSize,'#425cc9','#132470','red',
+		bola = new Bola(0,0,ballSize,'#d0a338','#705003','red',
 			'white',guerreros.length);
 	}
 	else if(factoria instanceof OrcoFactoria) {
-		bola = new Bola(0,0,ballSize,'#425cc9','#132470','red',
+		bola = new Bola(0,0,ballSize,'#5c7211','#2c3801','red',
 			'white',guerreros.length);
 	}
 	else if(factoria instanceof HuargoFactoria) {
-		bola = new Bola(0,0,ballSize,'#425cc9','#132470','red',
+		bola = new Bola(0,0,ballSize,'#703908','#3b1e04','red',
 			'white',guerreros.length);
 	}
 

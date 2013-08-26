@@ -2,7 +2,7 @@
  * Constructor de las bolas que representan las tropas.
  *
  * @author Jorge Martin Perez
- * @version 2.5
+ * @version 2.6
  */
 
 
@@ -10,7 +10,7 @@
 
 /**
  * Constructor de las bolas que representan las tropas.
- * @version 2.5
+ * @version 2.6
  *
  * @param cx - coord.x del centro
  * @param cy - coord.y del centro
@@ -125,7 +125,7 @@ function Bola (cx,cy,r,colorDentro,colorBorde,
 
 	/**
 	 * Setter de un borde.
-	 * @version 1.0
+	 * @version 1.1
 	 *
 	 * @param borde - 'arriba'|'abajo'|'izquierda'|'derecha'
 	 * @param array - [ini,end]
@@ -133,7 +133,8 @@ function Bola (cx,cy,r,colorDentro,colorBorde,
 	 * @return
 	 */
 	this.setBorde = function (borde,array) {
-		bordes[borde] = array;
+		bordes[borde][0] = array[0];
+		bordes[borde][1] = array[1];
 	}
 
 
@@ -380,27 +381,27 @@ function Bola (cx,cy,r,colorDentro,colorBorde,
 		var lado = 2 * (bola.getRadio() + 3);
 
 		if(borde == 'arriba') {
-			bola.setBorde('abajo', [bordes[borde][0],bordes[borde][0]]);
 			bola.setCX(bordes[borde][0]+3+bola.getRadio());
 			bola.setCY(cy-r-3 -3-bola.getRadio());
+			bola.setBorde('abajo', [bordes[borde][0],bordes[borde][0]]);
 			bordes[borde][0] += lado;
 		}
 		else if(borde == 'derecha') {
-			bola.setBorde('izquierda', [bordes[borde][0],bordes[borde][0]]);
 			bola.setCX(cx+r+3 +3+bola.getRadio());
 			bola.setCY(bordes[borde][0]+3+bola.getRadio());
+			bola.setBorde('izquierda', [bordes[borde][0],bordes[borde][0]]);
 			bordes[borde][0] += lado;
 		}
 		else if(borde == 'abajo') {
-			bola.setBorde('arriba', [bordes[borde][0],bordes[borde][0]]);
 			bola.setCX(bordes[borde][0]+3+bola.getRadio());
 			bola.setCY(cy+r+3 +3+bola.getRadio());
+			bola.setBorde('arriba', [bordes[borde][0],bordes[borde][0]]);
 			bordes[borde][0] += lado;
 		}
 		else { //'izquierda'
-			bola.setBorde('derecha', [bordes[borde][0],bordes[borde][0]]);
 			bola.setCX(cx-r-3 -3-bola.getRadio());
 			bola.setCY(bordes[borde][0]+3+bola.getRadio());
+			bola.setBorde('derecha', [bordes[borde][0],bordes[borde][0]]);
 			bordes[borde][0] += lado;
 		}
 	}

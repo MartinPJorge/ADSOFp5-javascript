@@ -2,7 +2,7 @@
  * Constructor del distribuidor de bolas.
  *
  * @author Jorge Martin Perez
- * @version 1.4
+ * @version 1.5
  */
 
 
@@ -10,7 +10,7 @@
 
 /**
  * Constructor del distribuidor de bolas.
- * @version 1.4
+ * @version 1.5
  *
  * @param canvas
  *
@@ -29,7 +29,7 @@ function Distribuidor(canvas) {
 	/**
 	 * Proporciona las bolas sobre las que el distribuidor
 	 * va a trabajar
-	 * @version 1.0
+	 * @version 1.1
 	 *
 	 * @param newBolas
 	 *
@@ -37,7 +37,10 @@ function Distribuidor(canvas) {
 	 */
 	this.setBolas = function(newBolas) {
 		bolas = newBolas;
-		bolas.sort();
+		bolas.sort(function (x,y) {
+			var xRadio = x.getRadio(), yRadio = y.getRadio();
+			return yRadio - xRadio;
+		});
 	}
 
 
