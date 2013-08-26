@@ -2,7 +2,7 @@
  * Constructor del distribuidor de bolas.
  *
  * @author Jorge Martin Perez
- * @version 1.3
+ * @version 1.4
  */
 
 
@@ -10,7 +10,7 @@
 
 /**
  * Constructor del distribuidor de bolas.
- * @version 1.3
+ * @version 1.4
  *
  * @param canvas
  *
@@ -148,7 +148,7 @@ function Distribuidor(canvas) {
 	/**
 	 * Coloca la bola pasada por argumento, y en caso de que no
 	 * entre alarga el canvas.
-	 * @version 1.0
+	 * @version 1.1
 	 *
 	 * @param bola
 	 * @param indiceBola - indice de la bola en el array de
@@ -162,7 +162,7 @@ function Distribuidor(canvas) {
 
 		// Si la bola no se puede meter, alargamos el canvas.
 		if(!this.sePuedePegarBola(bola))
-			canvas.height += 4 * (bola.getRadius()+3);
+			canvas.height = canvas.height + (4 * (bola.getRadio()+3))
 
 		while(!pegada && (i < indiceBola)) {
 			var posiblesBordes = bolas[i].sePuedePegar(bola);

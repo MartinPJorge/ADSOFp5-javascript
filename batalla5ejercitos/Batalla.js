@@ -2,7 +2,7 @@
  * Constructor para la batalla.
  *
  * @author Jorge Martin Perez
- * @version 1.3
+ * @version 1.4
  */
 
 
@@ -10,7 +10,7 @@
 
 /**
  * Constructor para la batalla
- * @version 1.3
+ * @version 1.4
  *
  * @return
  */
@@ -93,17 +93,18 @@ function Batalla (libreConstruye,oscuroConstruye,pImprime,canvas) {
 
 	/**
 	 * Se encarga de realizar la simulacion de la batalla.
-	 * @version 1.1
+	 * @version 1.2
 	 *
 	 * @return
 	 */
 	this.simular = function (argument) {
 		this.crearEjercito('libre');
 		this.crearEjercito('oscuro');
+		var distribuidor = this;
 
-		var finBatalla = false;
-		while(!finBatalla) {
-			this.printRonda();
+
+		var intervalo = setInterval(function () {
+			distribuidor.printRonda();
 
 			// Realizar asalto
 			ejercitoLibre.atacar(ejercitoOscuro);
@@ -116,10 +117,13 @@ function Batalla (libreConstruye,oscuroConstruye,pImprime,canvas) {
 			ronda++;
 			finBatalla = ejercitoLibre.estaAniquilado() ||
 			             ejercitoOscuro.estaAniquilado();
-		}
 
-		this.printRonda();
-		this.printVictoria();
+			if(finBatalla) {
+				distribuidor.printRonda();
+				distribuidor.printVictoria();
+				clearInterval(intervalo);
+			}
+		},1000);
 	}
 }
 

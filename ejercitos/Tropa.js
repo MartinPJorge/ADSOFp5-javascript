@@ -105,7 +105,7 @@ function Tropa (factoria,numGuerreros) {
 	this.aplicarHeridas = function () {
 		for (var i = 0; i < guerreros.length; i++)
 			guerreros[i].aplicarHeridas();
-		bola.parpadear(ctx,bola.getRadio()-1,this.contarVivos());
+		bola.parpadear(ctx,bola.getRadio()-3,this.contarVivos());
 	}
 
 
