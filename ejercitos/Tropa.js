@@ -2,7 +2,7 @@
  * Constructor para las tropas.
  *
  * @author Jorge Martin Perez
- * @version 1.6
+ * @version 1.9
  */
 
 
@@ -10,22 +10,28 @@
 
 /**
  * Constructor de tropas.
- * @version 1.6
+ * @version 1.9
  *
  * @param factoria
  * @param numGuerreros
+ * @param minGuerreros - el minimo numero de guerreros (sirve
+ *                       para calcular el radio de la bola).
+ * @param maxGuerreros - el maximo numero de guerreros (sirve
+ *                       para calcular el radio de la bola).
  * @return
  */
-function Tropa (factoria,numGuerreros) {
+function Tropa (factoria,numGuerreros,minGuerreros,maxGuerreros) {
 	var guerreros = [];
 	for(var i = 0; i < numGuerreros; i++)
 		guerreros.push( factoria.crearCriatura() );
 	
 
 	// Tamano de la bola que representa la tropa
-	var ballSize = numGuerreros * 5;
-	if(ballSize < 10) ballSize = 10;
-	else if(ballSize > 70) ballSize = 70; 
+	// minGuerreros ---- 10
+	// maxGuerreros ---- 70
+	var ballSize = (numGuerreros % (70-10)) + 10;
+	var ballSizeIni = ballSize;
+	var disminuye = ballSize / numGuerreros;
 
 	var bola = undefined;
 	if(factoria instanceof ElfoFactoria) { 
@@ -62,13 +68,13 @@ function Tropa (factoria,numGuerreros) {
 
 	/**
 	 * Determina si la tropa esta aniquilada.
-	 * @version 1.0
+	 * @version 1.1
 	 *
 	 * @return true|false
 	 */
 	this.estaAniquilada = function () {
 		var aniquilada = true, i = 0;
-		while((aniquilada == true) && (i < guerreros.length)) {
+		while(aniquilada && (i < guerreros.length)) {
 			aniquilada = guerreros[i].estaMuerto();
 			i++;
 		}
@@ -98,14 +104,19 @@ function Tropa (factoria,numGuerreros) {
 
 	/**
 	 * Aplica las heridas a toda la tropa.
-	 * @version 1.0
+	 * @version 1.1
 	 *
 	 * @return
 	 */
 	this.aplicarHeridas = function () {
+		var vivosAntes = this.contarVivos();
 		for (var i = 0; i < guerreros.length; i++)
 			guerreros[i].aplicarHeridas();
-		bola.parpadear(ctx,bola.getRadio()-3,this.contarVivos());
+		var vivosDespues = this.contarVivos();
+
+		var newRadio = (vivosAntes - vivosDespues) * disminuye;
+		bola.parpadear(ctx,bola.getRadio() - newRadio,
+			this.contarVivos());
 	}
 
 

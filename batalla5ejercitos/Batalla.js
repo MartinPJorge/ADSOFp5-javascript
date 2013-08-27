@@ -2,7 +2,7 @@
  * Constructor para la batalla.
  *
  * @author Jorge Martin Perez
- * @version 1.4
+ * @version 1.6
  */
 
 
@@ -10,35 +10,82 @@
 
 /**
  * Constructor para la batalla
- * @version 1.4
+ * @version 1.6
  *
  * @return
  */
 function Batalla (libreConstruye,oscuroConstruye,pImprime,canvas) {
+
+
+	/**
+	 * Obtiene la cantidad mas pequeña de guerreros por tropa, y
+	 * la mayor cantidad de guerreros por tropa. 
+	 * @version 1.0
+	 *
+	 * @return {'max': M, 'min': m}
+	 */
+	this.maxMinTropas = function () {
+		var minOscuro = Number.POSITIVE_INFINITY, minLibre = Number.POSITIVE_INFINITY;
+		var maxOscuro = Number.NEGATIVE_INFINITY, maxLibre = Number.NEGATIVE_INFINITY;
+
+		for (var i = 0; i < libreConstruye.length; i++) {
+			var minTropaLibre = 
+				Math.min.apply(null,libreConstruye[i].tropas);
+			var maxTropaLibre = 
+				Math.max.apply(null,libreConstruye[i].tropas);
+			
+
+			minLibre = (minTropaLibre < minLibre) ? minTropaLibre : minLibre;
+			maxLibre = (maxTropaLibre > maxLibre) ? maxTropaLibre : maxLibre;
+			
+		}
+
+		for (var i = 0; i < oscuroConstruye.length; i++) {
+			var minTropaOscura = 
+				Math.min.apply(null,oscuroConstruye[i].tropas);
+			var maxTropaOscura = 
+				Math.max.apply(null,oscuroConstruye[i].tropas);
+
+			minOscuro = (minTropaOscura < minOscuro) ? minTropaOscura : minOscuro;
+			maxOscuro = (maxTropaOscura > maxOscuro) ? maxTropaOscura : maxOscuro;
+		}
+
+		return {
+			'max' : (maxLibre > maxOscuro) ? maxLibre : maxOscuro,
+			'min' : (minLibre < minOscuro) ? minLibre : minOscuro,
+		}
+	}
+
+
 	var ejercitoLibre = null, ejercitoOscuro = null;
 	var libreConstruye = libreConstruye;
 	var oscuroConstruye = oscuroConstruye;
 	var pImprime = pImprime;
 	var ronda = 0;
+	var maxMin = this.maxMinTropas();
+	var maxTropas = maxMin.max, minTropas = maxMin.min;
 	var distribuidor = new Distribuidor(canvas);
+
 
 	/**
 	 * Crea el ejercito especificado.
-	 * @version 1.1
+	 * @version 1.2
 	 *
 	 * @param tipo - 'libre'|'oscuro' 
 	 * @return
 	 */
 	this.crearEjercito = function (tipo) {
 		if(tipo == 'libre') {
-			ejercitoLibre = new Ejercito(libreConstruye);
+			ejercitoLibre = new Ejercito(libreConstruye,
+				minTropas,maxTropas);
 
 			distribuidor.setBolas(ejercitoLibre.getBolas());
 			distribuidor.setLimites(0, canvas.width / 2);
 			distribuidor.distribuirBolas();
 		}
 		else {
-			ejercitoOscuro = new Ejercito(oscuroConstruye);
+			ejercitoOscuro = new Ejercito(oscuroConstruye,
+				minTropas,maxTropas);
 
 			distribuidor.setBolas(ejercitoOscuro.getBolas());
 			distribuidor.setLimites(
@@ -46,7 +93,6 @@ function Batalla (libreConstruye,oscuroConstruye,pImprime,canvas) {
 			distribuidor.distribuirBolas();
 		}
 	}
-
 
 
 	/**
@@ -115,13 +161,13 @@ function Batalla (libreConstruye,oscuroConstruye,pImprime,canvas) {
 			ejercitoOscuro.aplicarHeridas();
 
 			ronda++;
-			finBatalla = ejercitoLibre.estaAniquilado() ||
+			var finBatalla = ejercitoLibre.estaAniquilado() ||
 			             ejercitoOscuro.estaAniquilado();
 
 			if(finBatalla) {
+				clearInterval(intervalo);
 				distribuidor.printRonda();
 				distribuidor.printVictoria();
-				clearInterval(intervalo);
 			}
 		},1000);
 	}

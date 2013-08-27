@@ -2,21 +2,25 @@
  * Constructor para los ejercitos.
  *
  * @author Jorge Martin Perez
- * @version 1.6
+ * @version 1.9
  */
 
 
 
 /**
  * Constructor de ejercitos.
- * @version 1.6
+ * @version 1.9
  *
  * @param objs - objetos con claves 'factoria' y 'tropas', donde
  *               'tropas' es un Array con las cantidades de
  *               criaturas de cada tropa.
+ * @param minGuerreros - el minimo numero de guerreros (sirve
+ *                       para calcular el radio de la bola).
+ * @param maxGuerreros - el maximo numero de guerreros (sirve
+ *                       para calcular el radio de la bola).
  * @return
  */
-function Ejercito (objs) {
+function Ejercito (objs,minGuerreros,maxGuerreros) {
 	/**
 	 * Determina si todas las tropas son del mismo bando.
 	 * [obj1, obj2, obj3, ...]
@@ -54,7 +58,8 @@ function Ejercito (objs) {
 	var tropas = [];
 	for(var i = 0; i < objs.length; i++)
 		for (var j = 0; j < objs[i].tropas.length; j++)
-			tropas.push( new Tropa(objs[i].factoria,objs[i].tropas[j]) );
+			tropas.push( new Tropa(objs[i].factoria,objs[i].tropas[j],
+				minGuerreros,maxGuerreros) );
 
 
 
@@ -101,16 +106,17 @@ function Ejercito (objs) {
 
 	/**
 	 * Realiza un ataque al ejercito enemigo.
-	 * @version 1.2
+	 * @version 1.3
 	 *
 	 * @param ejercitoEnemigo
 	 * @return
 	 */
 	this.atacar = function (ejercitoEnemigo) {
 		var tropasEnemigas = ejercitoEnemigo.getTropasVivas();
+		var misTropas = this.getTropasVivas();
 
-		for (var i = 0; i < tropas.length; i++) {
-			tropas[i].atacar(
+		for (var i = 0; i < misTropas.length; i++) {
+			misTropas[i].atacar(
 				tropasEnemigas[Math.floor(Math.random()*tropasEnemigas.length)]
 				);
 		}
@@ -136,13 +142,14 @@ function Ejercito (objs) {
 
 	/**
 	 * Aplica las heridas a las tropas.
-	 * @version 1.0
+	 * @version 1.1
 	 *
 	 * @return
 	 */
 	this.aplicarHeridas = function () {
-		for (var i = 0; i < tropas.length; i++)
-			tropas[i].aplicarHeridas();
+		var tropasVivas = this.getTropasVivas();
+		for (var i = 0; i < tropasVivas.length; i++)
+			tropasVivas[i].aplicarHeridas();
 	}
 
 

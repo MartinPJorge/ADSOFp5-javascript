@@ -208,7 +208,7 @@ function Bola (cx,cy,r,colorDentro,colorBorde,
 			r = newRadius;
 			cantidad = newCantidad;
 			esto.dibujar(ctx);
-		},100);		
+		},100);	
 	}
 
 
