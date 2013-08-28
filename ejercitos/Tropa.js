@@ -2,7 +2,7 @@
  * Constructor para las tropas.
  *
  * @author Jorge Martin Perez
- * @version 1.9
+ * @version 2.3
  */
 
 
@@ -10,48 +10,37 @@
 
 /**
  * Constructor de tropas.
- * @version 1.9
+ * @version 2.3
  *
  * @param factoria
  * @param numGuerreros
- * @param minGuerreros - el minimo numero de guerreros (sirve
- *                       para calcular el radio de la bola).
- * @param maxGuerreros - el maximo numero de guerreros (sirve
- *                       para calcular el radio de la bola).
  * @return
  */
-function Tropa (factoria,numGuerreros,minGuerreros,maxGuerreros) {
+function Tropa (factoria,numGuerreros) {
 	var guerreros = [];
 	for(var i = 0; i < numGuerreros; i++)
 		guerreros.push( factoria.crearCriatura() );
 	
 
-	// Tamano de la bola que representa la tropa
-	// minGuerreros ---- 10
-	// maxGuerreros ---- 70
-	var ballSize = (numGuerreros % (70-10)) + 10;
-	var ballSizeIni = ballSize;
-	var disminuye = ballSize / numGuerreros;
-
 	var bola = undefined;
 	if(factoria instanceof ElfoFactoria) { 
-		bola = new Bola(0,0,ballSize,'#8aa42f','#4c5e0d','red',
+		bola = new Bola(0,0,undefined,'#8aa42f','#4c5e0d','red',
 			'white',guerreros.length);
 	}
 	else if(factoria instanceof EnanoFactoria) {
-		bola = new Bola(0,0,ballSize,'#425cc9','#132470','red',
+		bola = new Bola(0,0,undefined,'#425cc9','#132470','red',
 			'white',guerreros.length);
 	}
 	else if(factoria instanceof HombreFactoria) {
-		bola = new Bola(0,0,ballSize,'#d0a338','#705003','red',
+		bola = new Bola(0,0,undefined,'#d0a338','#705003','red',
 			'white',guerreros.length);
 	}
 	else if(factoria instanceof OrcoFactoria) {
-		bola = new Bola(0,0,ballSize,'#5c7211','#2c3801','red',
+		bola = new Bola(0,0,undefined,'#5c7211','#2c3801','red',
 			'white',guerreros.length);
 	}
 	else if(factoria instanceof HuargoFactoria) {
-		bola = new Bola(0,0,ballSize,'#703908','#3b1e04','red',
+		bola = new Bola(0,0,undefined,'#703908','#3b1e04','red',
 			'white',guerreros.length);
 	}
 
@@ -64,6 +53,19 @@ function Tropa (factoria,numGuerreros,minGuerreros,maxGuerreros) {
 	 * @return la bola que representa la tropa
 	 */
 	this.getBola = function () { return bola; }
+
+
+	/**
+	 * Setter de la variable que determina cuanto disminuye la
+	 * bola que representa la tropa, cuando notifica una baja.
+	 * @version 1.0
+	 *
+	 * @param newDisminuye
+	 * @return
+	 */
+	this.setDisminuye = function (newDisminuye) {
+		disminuye = newDisminuye;
+	}
 
 
 	/**
@@ -104,7 +106,7 @@ function Tropa (factoria,numGuerreros,minGuerreros,maxGuerreros) {
 
 	/**
 	 * Aplica las heridas a toda la tropa.
-	 * @version 1.1
+	 * @version 1.3
 	 *
 	 * @return
 	 */
@@ -114,9 +116,9 @@ function Tropa (factoria,numGuerreros,minGuerreros,maxGuerreros) {
 			guerreros[i].aplicarHeridas();
 		var vivosDespues = this.contarVivos();
 
-		var newRadio = (vivosAntes - vivosDespues) * disminuye;
-		bola.parpadear(ctx,bola.getRadio() - newRadio,
-			this.contarVivos());
+		var newRadio = bola.getRadio() - 
+			((vivosAntes - vivosDespues) * bola.getDisminuye());
+		bola.parpadear(ctx, newRadio, this.contarVivos());
 	}
 
 

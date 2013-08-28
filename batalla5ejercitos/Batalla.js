@@ -2,7 +2,7 @@
  * Constructor para la batalla.
  *
  * @author Jorge Martin Perez
- * @version 1.6
+ * @version 2.3
  */
 
 
@@ -10,7 +10,7 @@
 
 /**
  * Constructor para la batalla
- * @version 1.6
+ * @version 2.3
  *
  * @return
  */
@@ -63,30 +63,34 @@ function Batalla (libreConstruye,oscuroConstruye,pImprime,canvas) {
 	var pImprime = pImprime;
 	var ronda = 0;
 	var maxMin = this.maxMinTropas();
-	var maxTropas = maxMin.max, minTropas = maxMin.min;
-	var distribuidor = new Distribuidor(canvas);
+	var distribuidor = new Distribuidor(
+		canvas, maxMin.min, maxMin.max);
+
+	var intervalo = null;
 
 
 	/**
 	 * Crea el ejercito especificado.
-	 * @version 1.2
+	 * @version 1.3
 	 *
 	 * @param tipo - 'libre'|'oscuro' 
 	 * @return
 	 */
 	this.crearEjercito = function (tipo) {
 		if(tipo == 'libre') {
-			ejercitoLibre = new Ejercito(libreConstruye,
-				minTropas,maxTropas);
+			ejercitoLibre = new Ejercito(libreConstruye);
 
+			distribuidor.setDimensiones(
+				ejercitoLibre.getBolasYcantidad());
 			distribuidor.setBolas(ejercitoLibre.getBolas());
 			distribuidor.setLimites(0, canvas.width / 2);
 			distribuidor.distribuirBolas();
 		}
 		else {
-			ejercitoOscuro = new Ejercito(oscuroConstruye,
-				minTropas,maxTropas);
+			ejercitoOscuro = new Ejercito(oscuroConstruye);
 
+			distribuidor.setDimensiones(
+				ejercitoOscuro.getBolasYcantidad());
 			distribuidor.setBolas(ejercitoOscuro.getBolas());
 			distribuidor.setLimites(
 				canvas.width / 2, canvas.width);
@@ -96,9 +100,48 @@ function Batalla (libreConstruye,oscuroConstruye,pImprime,canvas) {
 
 
 	/**
+	 * Getter de la ronda.
+	 * @version 1.0
+	 *
+	 * @return ronda
+	 */
+	this.getRonda = function () { return ronda; }
+
+
+	/**
+	 * Setter de la ronda.
+	 * @version 1.0
+	 *
+	 * @param newRonda - nueva ronda
+	 * @return
+	 */
+	this.setRonda = function (newRonda) {
+		ronda = newRonda;
+	}
+
+
+	/**
+	 * Getter del ejercito libre.
+	 * @version 1.0
+	 *
+	 * @return ejercito libre
+	 */
+	this.getEjercitoLibre = function () { return ejercitoLibre; }
+
+
+	/**
+	 * Getter del ejercito oscuro.
+	 * @version 1.0
+	 *
+	 * @return ejercito oscuro
+	 */
+	this.getEjercitoOscuro = function () { return ejercitoOscuro; }
+
+
+	/**
 	 * Imprime en el span del estado de la batalla el estado de
 	 * las tropas de ambos ejercitos.
-	 * @version 1.0
+	 * @version 1.1
 	 *
 	 * @return
 	 */
@@ -112,11 +155,12 @@ function Batalla (libreConstruye,oscuroConstruye,pImprime,canvas) {
 		for (var i = 0; i < tropasLibres.length; i++)
 			imprimir += tropasLibres[i] + '<br/>';
 
-		imprimir += '<br/>--- Ejercito oscuro ---<br/>';
+		imprimir += '--- Ejercito oscuro ---<br/>';
 
 		for (var i = 0; i < tropasOscuras.length; i++)
 			imprimir += tropasOscuras[i] + '<br/>';
 
+		imprimir += '<br/><br/>';
 		pImprime.innerHTML += imprimir;
 	}
 
@@ -138,38 +182,55 @@ function Batalla (libreConstruye,oscuroConstruye,pImprime,canvas) {
 
 
 	/**
-	 * Se encarga de realizar la simulacion de la batalla.
-	 * @version 1.2
+	 * Se encarga de lanzar una ronda de ataques.
+	 * @version 1.0
 	 *
 	 * @return
 	 */
-	this.simular = function (argument) {
+	this.lanzarRonda = function () {
+		this.printRonda();
+
+		// Realizar asalto
+		ejercitoLibre.atacar(ejercitoOscuro);
+		ejercitoOscuro.atacar(ejercitoLibre);
+
+		// Aplicar daños
+		ejercitoLibre.aplicarHeridas();
+		ejercitoOscuro.aplicarHeridas();
+
+		ronda++;
+		var libreAniquilado = ejercitoLibre.estaAniquilado();
+		var oscuroAniquilado = ejercitoOscuro.estaAniquilado();
+		var finBatalla =  libreAniquilado || oscuroAniquilado;
+
+		if(finBatalla) {
+			clearInterval(intervalo);
+			this.printRonda();
+			this.printVictoria();
+		}
+	}
+
+
+	/**
+	 * Se encarga de realizar la simulacion de la batalla.
+	 * @version 1.3
+	 *
+	 * @return
+	 */
+	this.simular = function () {
 		this.crearEjercito('libre');
 		this.crearEjercito('oscuro');
-		var distribuidor = this;
+		var batalla = this;
 
 
-		var intervalo = setInterval(function () {
-			distribuidor.printRonda();
+		this.lanzarRonda();
 
-			// Realizar asalto
-			ejercitoLibre.atacar(ejercitoOscuro);
-			ejercitoOscuro.atacar(ejercitoLibre);
 
-			// Aplicar daños
-			ejercitoLibre.aplicarHeridas();
-			ejercitoOscuro.aplicarHeridas();
-
-			ronda++;
-			var finBatalla = ejercitoLibre.estaAniquilado() ||
-			             ejercitoOscuro.estaAniquilado();
-
-			if(finBatalla) {
-				clearInterval(intervalo);
-				distribuidor.printRonda();
-				distribuidor.printVictoria();
-			}
-		},1000);
+		if(intervalo == null) {
+			intervalo = setInterval(function () {
+				batalla.lanzarRonda();
+			}, 1000);
+		}
 	}
 }
 

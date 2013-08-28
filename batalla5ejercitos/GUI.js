@@ -2,8 +2,10 @@
  * Gestion de la interfaz del usuario,
  *
  * @author Jorge Martin Perez
- * @version 1.0
+ * @version 1.1
  */
+
+var pelea = null;
 
 
 var criaturasLibres = document.getElementById('criaturasLibres');
@@ -23,6 +25,7 @@ var historialBatalla = document.getElementById('historialBatalla');
 var startButton = document.getElementById('empezar');
 
 var canvas = document.getElementById('battleScreen');
+var ctx = canvas.getContext('2d');
 
 
 
@@ -219,10 +222,15 @@ borrarTropaOscura.addEventListener('click', function (ev) {
 
 
 startButton.addEventListener('click', function (ev) {
+	ctx.clearRect(0,0,canvas.width,canvas.height);
 	selectTropasLibres.innerHTML = selectTropasOscuras.innerHTML = 
 	historialBatalla.innerHTML = '';
-	var pelea = new Batalla(ejercitoLibre,ejercitoOscuro,historialBatalla,canvas);
+	pelea = new Batalla(ejercitoLibre,ejercitoOscuro,historialBatalla,canvas);
 	pelea.simular();
+
+	//alert('a');
+	// Borramos los ejercitos
+	ejercitoOscuro = ejercitoLibre = [];
 }, false);
 
 

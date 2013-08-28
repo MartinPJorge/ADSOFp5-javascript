@@ -2,25 +2,21 @@
  * Constructor para los ejercitos.
  *
  * @author Jorge Martin Perez
- * @version 1.9
+ * @version 2.3
  */
 
 
 
 /**
  * Constructor de ejercitos.
- * @version 1.9
+ * @version 2.3
  *
  * @param objs - objetos con claves 'factoria' y 'tropas', donde
  *               'tropas' es un Array con las cantidades de
  *               criaturas de cada tropa.
- * @param minGuerreros - el minimo numero de guerreros (sirve
- *                       para calcular el radio de la bola).
- * @param maxGuerreros - el maximo numero de guerreros (sirve
- *                       para calcular el radio de la bola).
  * @return
  */
-function Ejercito (objs,minGuerreros,maxGuerreros) {
+function Ejercito (objs) {
 	/**
 	 * Determina si todas las tropas son del mismo bando.
 	 * [obj1, obj2, obj3, ...]
@@ -58,8 +54,7 @@ function Ejercito (objs,minGuerreros,maxGuerreros) {
 	var tropas = [];
 	for(var i = 0; i < objs.length; i++)
 		for (var j = 0; j < objs[i].tropas.length; j++)
-			tropas.push( new Tropa(objs[i].factoria,objs[i].tropas[j],
-				minGuerreros,maxGuerreros) );
+			tropas.push( new Tropa(objs[i].factoria,objs[i].tropas[j]) );
 
 
 
@@ -89,6 +84,29 @@ function Ejercito (objs,minGuerreros,maxGuerreros) {
 
 
 	/**
+	 * Obtiene las bolas que representan a las tropas del
+	 * ejercito, y ademas devuelve la cantidad de guerreros
+	 * de la tropa que representa cada bola.
+	 * @version 1.1
+	 *
+	 * @return [{'bola' : a,'cantidad' : 2}, {},{},...]
+	 */
+	this.getBolasYcantidad = function () {
+		var tropas = this.getTropas();
+		var paresBolaCantidad = new Array(tropas.length);
+
+		for (var i = 0; i < tropas.length; i++) {
+			paresBolaCantidad[i] = {
+				'bola' : tropas[i].getBola(),
+				'cantidad' : tropas[i].contarVivos()
+			};
+		}
+
+		return paresBolaCantidad;
+	}
+
+
+	/**
 	 * Devuelve las tropas vivas.
 	 * @version 1.0
 	 *
@@ -106,7 +124,7 @@ function Ejercito (objs,minGuerreros,maxGuerreros) {
 
 	/**
 	 * Realiza un ataque al ejercito enemigo.
-	 * @version 1.3
+	 * @version 1.4
 	 *
 	 * @param ejercitoEnemigo
 	 * @return
@@ -114,6 +132,10 @@ function Ejercito (objs,minGuerreros,maxGuerreros) {
 	this.atacar = function (ejercitoEnemigo) {
 		var tropasEnemigas = ejercitoEnemigo.getTropasVivas();
 		var misTropas = this.getTropasVivas();
+
+		if(ejercitoEnemigo.estaAniquilado() ||
+			this.estaAniquilado())
+			return;
 
 		for (var i = 0; i < misTropas.length; i++) {
 			misTropas[i].atacar(

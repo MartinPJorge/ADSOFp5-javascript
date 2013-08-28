@@ -2,7 +2,7 @@
  * Constructor de las bolas que representan las tropas.
  *
  * @author Jorge Martin Perez
- * @version 2.6
+ * @version 3.2
  */
 
 
@@ -10,7 +10,7 @@
 
 /**
  * Constructor de las bolas que representan las tropas.
- * @version 2.6
+ * @version 3.2
  *
  * @param cx - coord.x del centro
  * @param cy - coord.y del centro
@@ -24,6 +24,7 @@
 function Bola (cx,cy,r,colorDentro,colorBorde,
 	colorDano,colorTexto,cantidad) {
 	var cx = cx, cy = cy, r = r;
+	var radioIni = r;
 	var colorDentro = colorDentro;
 	var colorBorde = colorBorde;
 	var colorDano = colorDano;
@@ -35,6 +36,7 @@ function Bola (cx,cy,r,colorDentro,colorBorde,
 		'abajo' : [cx-r-3, cx+r+3], 
 		'izquierda' : [cy-r-3, cy+r+3], 
 	};
+	var disminuye = undefined;
 
 
 	/**
@@ -62,6 +64,49 @@ function Bola (cx,cy,r,colorDentro,colorBorde,
 	 * @return r - radio de la bola
 	 */
 	this.getRadio = function () { return r; }
+
+
+	/**
+	 * Setter del radio.
+	 * @version 1.0
+	 *
+	 * @param newRadio
+	 * @return
+	 */
+	this.setRadio = function (newRadio) { r = newRadio; }
+
+
+	/**
+	 * Setter del radio inicial.
+	 * @version 1.0
+	 *
+	 * @param newRadioIni
+	 * @return
+	 */
+	this.setRadioIni = function (newRadioIni) {
+		radioIni = newRadioIni;
+	}	
+
+
+	/**
+	 * Getter del parametro de disminuir.
+	 * @version 1.0
+	 *
+	 * @return disminuye
+	 */
+	this.getDisminuye = function () { return disminuye; }
+
+
+	/**
+	 * Setter del parametro de disminuir.
+	 * @version 1.0
+	 *
+	 * @param newDisminuye
+	 * @return
+	 */
+	this.setDisminuye = function (newDisminuye) {
+		disminuye = newDisminuye;
+	}
 
 
 	/**
@@ -178,14 +223,15 @@ function Bola (cx,cy,r,colorDentro,colorBorde,
 
 	/**
 	 * Borra la bola.
-	 * @version 1.0
+	 * @version 1.1
 	 *
 	 * @param ctx - contexto del canvas
 	 *
 	 * @return
 	 */
 	this.borrar = function (ctx) {
-		ctx.clearRect(cx-r-3,cy-r-3, (2*r)+6,(2*r)+6);
+		ctx.clearRect(cx-radioIni-3,cy-radioIni-3, 
+			(2*radioIni)+6,(2*radioIni)+6);
 	}
 
 

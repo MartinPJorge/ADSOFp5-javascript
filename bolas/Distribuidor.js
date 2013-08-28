@@ -2,22 +2,47 @@
  * Constructor del distribuidor de bolas.
  *
  * @author Jorge Martin Perez
- * @version 1.5
+ * @version 2.0
  */
 
+
+
+/**
+ * Parametriza una recta que incluye los puntos proporcionados
+ * @version 1.0
+ *
+ * @param x1 - coordenada x del 1 punto
+ * @param y1 - coordenada y del 1 punto
+ * @param x2 - coordenada x del 2 punto
+ * @param y2 - coordenada y del 2 punto
+ *
+ * @return {'a':a,'b':b} - correspondientes a la ecuacion
+ *                         (y = ax+b).
+ */
+function paramRecta (x1,y1, x2,y2) {
+	var _b = (x1*y2 - x2*y1) / (x1 - x2);
+	var _a = (y1 - _b) / x1;
+
+	return {a: _a, b:_b};
+}
 
 
 
 /**
  * Constructor del distribuidor de bolas.
- * @version 1.5
+ * @version 1.9
  *
  * @param canvas
- *
+ * @param minGuerreros - el minimo numero de guerreros (sirve
+ *                       para calcular el radio de la bola).
+ * @param maxGuerreros - el maximo numero de guerreros (sirve
+ *                       para calcular el radio de la bola).
  * @return
  */
-function Distribuidor(canvas) {
+function Distribuidor(canvas,minGuerreros,maxGuerreros) {
 	var bolas = [];
+	var minGuerreros = minGuerreros;
+	var maxGuerreros = maxGuerreros;
 	var limites = {        
 		'izquierda' : undefined,
 		'derecha' : undefined
@@ -57,6 +82,41 @@ function Distribuidor(canvas) {
 	this.setLimites = function (izquierda,derecha) {
 		limites.izquierda = izquierda;
 		limites.derecha = derecha;
+	}
+
+
+	/**
+	 * Establece los radios de las bolas de cada tropa 
+	 * atendiendo al numero maximo y minimo de guerreros sobre
+	 * los que trabajara el distribuidor. Ademas establece el 
+	 * parametro que indica cuanto disminuye el radio de la bola
+	 * cuando la tropa recibe una baja.
+	 * @version 1.2
+	 *
+	 * @param paresBolaCantidad - [{'bola' : a,'cantidad' : 2},
+	 *                             {},{},...]
+	 *
+	 * @return
+	 */
+	this.setDimensiones = function (paresBolaCantidad) {
+		// El radio maximo lo ponemos en 30.
+		var radioMax = 40;
+		var radioMin = (minGuerreros * radioMax) / maxGuerreros;
+		var recta = undefined;
+		if(minGuerreros != maxGuerreros)
+			recta = paramRecta(minGuerreros,8, maxGuerreros,40);
+		else
+			recta = {'a' : 0, 'b' : radioMax};
+
+
+		for (var i = 0; i < paresBolaCantidad.length; i++) {
+			var cantidad = paresBolaCantidad[i].cantidad;
+			var bola = paresBolaCantidad[i].bola;
+
+			bola.setRadio((cantidad * recta.a) + recta.b);
+			bola.setRadioIni((cantidad * recta.a) + recta.b);
+			bola.setDisminuye(bola.getRadio() / cantidad);
+		}
 	}
 
 
