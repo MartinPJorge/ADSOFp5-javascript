@@ -45,7 +45,14 @@
 
 
 	<body>
-		<h1>Batalla de los 5 ejércitos</h1>
+		<h1>
+			<span>Batalla </span>
+			<div>
+				<span id="arriba">de</span><br/>
+				<span id="abajo">los</span>
+			</div>
+			<span> 5 ejércitos</span>
+		</h1><br/>
 
 		<canvas id="battleScreen" width="400" height="300"></canvas><br/>
 		<a id="despliega" class="icon-angle-double-down">Historial</a><br/>
@@ -53,48 +60,7 @@
 		<br/><br/>
 
 
-		<table id="atributosCriatura">
-			<tr>
-				<td class="type"></td>
-				<td>Hombre</td>
-				<td>Elfo</td>
-				<td>Enano</td>
-				<td>Orco</td>
-				<td>Huargo</td>
-			</tr>
-			<tr>
-				<td class="type">Color</td>
-				<td><div class="colorTropa" id="colorHombre"></div></td>
-				<td><div class="colorTropa" id="colorElfo"></div></td>
-				<td><div class="colorTropa" id="colorEnano"></div></td>
-				<td><div class="colorTropa" id="colorOrco"></div></td>
-				<td><div class="colorTropa" id="colorHuargo"></div></td>
-			</tr>
-			<tr>
-				<td class="type">Puntos de vida</td>
-				<td>1</td>
-				<td>2</td>
-				<td>1</td>
-				<td>2</td>
-				<td>1</td>
-			</tr>
-			<tr>
-				<td class="type">Ataque</td>
-				<td>[2,4]</td>
-				<td>[2,3]</td>
-				<td>[1,4]</td>
-				<td>[2,4]</td>
-				<td>[1,3]</td>
-			</tr>
-			<tr>
-				<td class="type">Defensa</td>
-				<td>[1,3]</td>
-				<td>[2,3]</td>
-				<td>[1,2]</td>
-				<td>[1,2]</td>
-				<td>[2,4]</td>
-			</tr>
-		</table>
+		
 
 
 
@@ -142,7 +108,83 @@
 			</fieldset>
 		</form><br/>
 
-		<a id="empezar">Empezar</a>
+		<a id="empezar" href="#">Empezar</a><br/>
+
+		<table id="atributosCriatura">
+			<tr>
+				<td class="type"></td>
+				<td>Hombre</td>
+				<td>Elfo</td>
+				<td>Enano</td>
+				<td>Orco</td>
+				<td>Huargo</td>
+			</tr>
+			<tr>
+				<td class="type">Color</td>
+				<td><div class="colorTropa" id="colorHombre"></div></td>
+				<td><div class="colorTropa" id="colorElfo"></div></td>
+				<td><div class="colorTropa" id="colorEnano"></div></td>
+				<td><div class="colorTropa" id="colorOrco"></div></td>
+				<td><div class="colorTropa" id="colorHuargo"></div></td>
+			</tr>
+			<tr>
+				<td class="type">Puntos de vida</td>
+				<td>1</td>
+				<td>2</td>
+				<td>1</td>
+				<td>2</td>
+				<td>1</td>
+			</tr>
+			<tr>
+				<td class="type">Ataque</td>
+				<td>[2,4]</td>
+				<td>[2,3]</td>
+				<td>[1,4]</td>
+				<td>[2,4]</td>
+				<td>[1,3]</td>
+			</tr>
+			<tr>
+				<td class="type">Defensa</td>
+				<td>[1,3]</td>
+				<td>[2,3]</td>
+				<td>[1,2]</td>
+				<td>[1,2]</td>
+				<td>[2,4]</td>
+			</tr>
+		</table><br/>
+
+
+		<section tabindex="0" class="explicacion">
+			<div class="esquinita"></div>
+			<h2>¿Cómo lo ejecuto?</h2>
+			<p>
+				En cada ejército seleccionamos las tropas a añadir, y acto seguido comenzamos la visualización. En caso de equivocarnos al añadir una tropa podemos borrarla. Cada tropa está representada por un círculo proporcional a los tamaños de las distintas tropas añadidas.
+			</p>
+		</section><br/>
+
+		<section tabindex="0" class="explicacion">
+			<div class="esquinita"></div>
+			<h2>¿Cómo funciona?</h2>
+			<p>
+				Los ataques se realizan de forma aleatoria. Primero a cada una de las tropas del ejército libre se le asigna de forma aleatoria otra tropa del ejército oscuro, y luego se realiza el ataque. Después el ejército oscuro realiza el ataque, y al final de la ronda se aplican las heridas recibidas por ambos ejércitos.<br/>
+				Para llevar a cabo el ataque de una criatura a otra se realiza lo siguiente:<br/>
+				<ol>
+					<li>El atacante lanza un dado en el rango de su ataque.</li>
+					<li>El defensor lanza un dado en el rango de su defensa.</li>
+					<li>Al defensor se le aplican las heridas = (ataqueObtenido - defensaObtenida)</li>
+				</ol>
+			</p>
+		</section><br/>
+
+		<section tabindex="0" class="explicacion">
+			<div class="esquinita"></div>
+			<h2>Características de criaturas</h2>
+			<p>
+				Como los elfos y orcos se les considera 'primeros nacidos', ambos tienen la habilidad de poder curar las heridas recibidas. Para ello determinamos si curan las heridas recibidas mediante un aleatorio entre 0 y 1. Elfo y orco se curan si el número es menor que 0.3 y 0.2, respectivamente.<br/>
+				En la tabla de arriba se muestran los atributos de cada criatura.
+			</p>
+		</section>
+		
 	</body>	
 
 	<!-- GUI -->

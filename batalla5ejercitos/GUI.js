@@ -136,16 +136,22 @@ addTropaLibre.addEventListener('click', function (ev) {
 	try {
 		addTropaClickHandler(ev,'libre');
 	}
-	catch(e if e instanceof TropaVaciaEx){
-		alert(e.mensaje);
+	catch(e){
+		if(e instanceof TropaVaciaEx)
+			alert(e.mensaje);
+		else
+			throw e;
 	}
 }, false);
 addTropaOscura.addEventListener('click', function (ev) {
 	try {
 		addTropaClickHandler(ev,'oscuro');
 	}
-	catch(e if e instanceof TropaVaciaEx) {
-		alert(e.mensaje);
+	catch(e){
+		if(e instanceof TropaVaciaEx)
+			alert(e.mensaje);
+		else
+			throw e;
 	}
 }, false);
 
@@ -226,21 +232,35 @@ startButton.addEventListener('click', function (ev) {
 	selectTropasLibres.innerHTML = selectTropasOscuras.innerHTML = 
 	historialBatalla.innerHTML = '';
 	pelea = new Batalla(ejercitoLibre,ejercitoOscuro,historialBatalla,canvas);
+
 	// Borramos los ejercitos
 	ejercitoLibre.length = 0;
 	ejercitoOscuro.length = 0;
-	pelea.simular();
 
-	
+	pelea.simular();
 }, false);
 
 
 
 // --- Desplegable historial ---
 despliegaHistorial.addEventListener('click', function (ev) {
-	if(historialBatalla.style.height != '0px')
-		historialBatalla.style.height = '0px';
-	else 
+	if(historialBatalla.style.height != '230px')
 		historialBatalla.style.height = '230px';
+	else 
+		historialBatalla.style.height = '0px';
 }, false);
 
+// --- Secciones de explicacion ---
+var secciones = document.querySelectorAll('section.explicacion');
+for(var i = 0; i < secciones.length; i++) {
+	secciones[i].addEventListener('focus', function (ev) {
+		this.children[0].style.width = '25px';
+		this.children[0].style.height = '25px';
+		this.children[1].style.textDecoration = 'underline';
+	},false);
+	secciones[i].addEventListener('blur', function (ev) {
+		this.children[0].style.width = '0';
+		this.children[0].style.height = '0';
+		this.children[1].style.textDecoration = 'none';
+	},false);
+}

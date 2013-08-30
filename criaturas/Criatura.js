@@ -2,7 +2,7 @@
  * Este objeto sirve de base para el resto de criaturas.
  *
  * @author Jorge Martin Perez
- * @version 1.0
+ * @version 1.1
  */
 
 
@@ -10,7 +10,7 @@
 
 /**
  * Literal del objeto criatura que simula dicha clase abstracta.
- * @version 1.0
+ * @version 1.1
  */
 var Criatura = {
 	/**
@@ -115,13 +115,20 @@ var Criatura = {
 
 		/**
 		 * Suma heridas a la criatura.
-		 * @version 1.0
+		 * @version 1.1
 		 *
 		 * @param numeroHeridas - numero de heridas a sumar.
 		 * @return
 		 */
 		this.addHeridas = function(numeroHeridas) {
-			heridas += numeroHeridas;
+			if(A_implementa_B(this,PrimerNacido)) {
+				for (var i = 0; i < numeroHeridas; i++) {
+					if(!this.curarHerida())
+						heridas++;
+				}
+			}
+			else
+				heridas += numeroHeridas;
 		}
 
 		/**
