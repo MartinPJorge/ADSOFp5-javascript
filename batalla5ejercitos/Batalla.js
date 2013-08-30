@@ -2,7 +2,7 @@
  * Constructor para la batalla.
  *
  * @author Jorge Martin Perez
- * @version 2.3
+ * @version 2.4
  */
 
 
@@ -10,7 +10,7 @@
 
 /**
  * Constructor para la batalla
- * @version 2.3
+ * @version 2.4
  *
  * @return
  */
@@ -58,8 +58,8 @@ function Batalla (libreConstruye,oscuroConstruye,pImprime,canvas) {
 
 
 	var ejercitoLibre = null, ejercitoOscuro = null;
-	var libreConstruye = libreConstruye;
-	var oscuroConstruye = oscuroConstruye;
+	var libreConstruye = libreConstruye.slice(0);
+	var oscuroConstruye = oscuroConstruye.slice(0);
 	var pImprime = pImprime;
 	var ronda = 0;
 	var maxMin = this.maxMinTropas();

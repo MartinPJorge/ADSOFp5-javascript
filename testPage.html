@@ -48,41 +48,53 @@
 		<h1>Batalla de los 5 ejércitos</h1>
 
 		<canvas id="battleScreen" width="400" height="300"></canvas><br/>
-		<a id="despliega">Historial</a><br/>
+		<a id="despliega" class="icon-angle-double-down">Historial</a><br/>
 		<p id="historialBatalla"></p>
 		<br/><br/>
 
 
-
-		<script type="text/javascript">
-			var canvas = document.getElementById('battleScreen');
-			var ctx = canvas.getContext('2d');
-
-			/*var bolaAzul = new Bola(200,150,30,'#425cc9','#132470','red','white',100);
-			bolaAzul.dibujar(ctx);
-
-			setTimeout(function () {
-				bolaAzul.parpadear(ctx,20,80);
-			}, 1000);*/
-	
-
-			/*var bola1 = new Bola(200,150,30,'#425cc9','#132470','red','white',100);
-			var bola2 = new Bola(0,0,30,'#425cc9','#132470','red','white',100);
-			var bola3 = new Bola(0,0,10,'#425cc9','#132470','red','white',100);
-			var bola4 = new Bola(0,0,20,'#425cc9','#132470','red','white',100);
-			var bola5 = new Bola(0,0,10,'#425cc9','#132470','red','white',100);
-
-			bola1.pegar(bola2);
-			bola1.pegar(bola3);
-			bola1.pegar(bola4);
-			bola1.pegar(bola5);
-			//alert(bola1.sePuedePegar(bola2));
-			bola1.dibujar(ctx);
-			bola2.dibujar(ctx);
-			bola3.dibujar(ctx);
-			bola4.dibujar(ctx);
-			bola5.dibujar(ctx);*/
-		</script>
+		<table id="atributosCriatura">
+			<tr>
+				<td class="type"></td>
+				<td>Hombre</td>
+				<td>Elfo</td>
+				<td>Enano</td>
+				<td>Orco</td>
+				<td>Huargo</td>
+			</tr>
+			<tr>
+				<td class="type">Color</td>
+				<td><div class="colorTropa" id="colorHombre"></div></td>
+				<td><div class="colorTropa" id="colorElfo"></div></td>
+				<td><div class="colorTropa" id="colorEnano"></div></td>
+				<td><div class="colorTropa" id="colorOrco"></div></td>
+				<td><div class="colorTropa" id="colorHuargo"></div></td>
+			</tr>
+			<tr>
+				<td class="type">Puntos de vida</td>
+				<td>1</td>
+				<td>2</td>
+				<td>1</td>
+				<td>2</td>
+				<td>1</td>
+			</tr>
+			<tr>
+				<td class="type">Ataque</td>
+				<td>[2,4]</td>
+				<td>[2,3]</td>
+				<td>[1,4]</td>
+				<td>[2,4]</td>
+				<td>[1,3]</td>
+			</tr>
+			<tr>
+				<td class="type">Defensa</td>
+				<td>[1,3]</td>
+				<td>[2,3]</td>
+				<td>[1,2]</td>
+				<td>[1,2]</td>
+				<td>[2,4]</td>
+			</tr>
+		</table>
 
 
 

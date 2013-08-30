@@ -2,7 +2,7 @@
  * Constructor de las bolas que representan las tropas.
  *
  * @author Jorge Martin Perez
- * @version 3.2
+ * @version 3.4
  */
 
 
@@ -10,7 +10,7 @@
 
 /**
  * Constructor de las bolas que representan las tropas.
- * @version 3.2
+ * @version 3.4
  *
  * @param cx - coord.x del centro
  * @param cy - coord.y del centro
@@ -185,7 +185,7 @@ function Bola (cx,cy,r,colorDentro,colorBorde,
 
 	/**
 	 * Dibuja la bola.
-	 * @version 1.0
+	 * @version 1.2
 	 *
 	 * @param ctx - contexto del canvas
 	 * @param dentro[opcional] - color de dentro
@@ -196,12 +196,14 @@ function Bola (cx,cy,r,colorDentro,colorBorde,
 		var dentro = (arguments.length == 1) ? colorDentro : dentro;
 		var c = r;
 
+		// Circulo
 		ctx.beginPath();
 		ctx.moveTo(cx+r,cy);
 		ctx.arc(cx,cy,r, 0,2*Math.PI, true);
 		ctx.fillStyle = dentro;
 		ctx.fill();
 
+		// Borde del circulo
 		ctx.moveTo(cx+r,cy);
 		ctx.arc(cx,cy,r+1, 0,2*Math.PI, true);
 		ctx.lineWidth = 1;
@@ -210,11 +212,14 @@ function Bola (cx,cy,r,colorDentro,colorBorde,
 
 		ctx.save();
 
+		// Texto con la cantidad
 		ctx.fillStyle = colorTexto;
 		ctx.shadowBlur = 3;
 		ctx.shadowColor = 'black';
-		ctx.font = '20px Times';
-		ctx.fillText(cantidad, cx-(String(cantidad).length*5),cy+3);
+		ctx.font = radioIni + 'px Times';
+		ctx.textAlign = 'center';
+		var baseline = cy + radioIni/4;
+		ctx.fillText(cantidad, cx,baseline);
 		ctx.closePath();
 
 		ctx.restore();

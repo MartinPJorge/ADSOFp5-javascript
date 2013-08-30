@@ -2,7 +2,7 @@
  * Constructor del distribuidor de bolas.
  *
  * @author Jorge Martin Perez
- * @version 2.0
+ * @version 2.1
  */
 
 
@@ -30,7 +30,7 @@ function paramRecta (x1,y1, x2,y2) {
 
 /**
  * Constructor del distribuidor de bolas.
- * @version 1.9
+ * @version 2.0
  *
  * @param canvas
  * @param minGuerreros - el minimo numero de guerreros (sirve
@@ -91,7 +91,7 @@ function Distribuidor(canvas,minGuerreros,maxGuerreros) {
 	 * los que trabajara el distribuidor. Ademas establece el 
 	 * parametro que indica cuanto disminuye el radio de la bola
 	 * cuando la tropa recibe una baja.
-	 * @version 1.2
+	 * @version 1.3
 	 *
 	 * @param paresBolaCantidad - [{'bola' : a,'cantidad' : 2},
 	 *                             {},{},...]
@@ -104,7 +104,7 @@ function Distribuidor(canvas,minGuerreros,maxGuerreros) {
 		var radioMin = (minGuerreros * radioMax) / maxGuerreros;
 		var recta = undefined;
 		if(minGuerreros != maxGuerreros)
-			recta = paramRecta(minGuerreros,8, maxGuerreros,40);
+			recta = paramRecta(minGuerreros,radioMin, maxGuerreros,40);
 		else
 			recta = {'a' : 0, 'b' : radioMax};
 
@@ -113,8 +113,11 @@ function Distribuidor(canvas,minGuerreros,maxGuerreros) {
 			var cantidad = paresBolaCantidad[i].cantidad;
 			var bola = paresBolaCantidad[i].bola;
 
-			bola.setRadio((cantidad * recta.a) + recta.b);
-			bola.setRadioIni((cantidad * recta.a) + recta.b);
+			var radio = (cantidad * recta.a) + recta.b;
+			if(radio < 8) radio = 8;
+			
+			bola.setRadio(radio);
+			bola.setRadioIni(radio);
 			bola.setDisminuye(bola.getRadio() / cantidad);
 		}
 	}

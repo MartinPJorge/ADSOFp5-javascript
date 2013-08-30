@@ -226,11 +226,12 @@ startButton.addEventListener('click', function (ev) {
 	selectTropasLibres.innerHTML = selectTropasOscuras.innerHTML = 
 	historialBatalla.innerHTML = '';
 	pelea = new Batalla(ejercitoLibre,ejercitoOscuro,historialBatalla,canvas);
+	// Borramos los ejercitos
+	ejercitoLibre.length = 0;
+	ejercitoOscuro.length = 0;
 	pelea.simular();
 
-	//alert('a');
-	// Borramos los ejercitos
-	ejercitoOscuro = ejercitoLibre = [];
+	
 }, false);
 
 

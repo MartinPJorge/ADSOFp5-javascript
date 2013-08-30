@@ -1,3 +1,67 @@
+@font-face {
+  font-family: 'fontello';
+  src: url('font/fontello.eot?82809561');
+  src: url('font/fontello.eot?82809561#iefix') format('embedded-opentype'),
+       url('font/fontello.woff?82809561') format('woff'),
+       url('font/fontello.ttf?82809561') format('truetype'),
+       url('font/fontello.svg?82809561#fontello') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'fontello';
+    src: url('../font/fontello.svg?82809561#fontello') format('svg');
+  }
+}
+*/
+ 
+ [class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+     
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+ 
+.icon-angle-double-down:before { content: '\e800'; } /* '' */
+
+
+
+
+
+
+
+
+
+
+
 body {
 	background-color: #441b1b;
 	color: #fda06d;
@@ -6,10 +70,12 @@ body {
 
 h1 {
 	font-size: 50px;
+	text-decoration: underline;
 }
 
 canvas {
-	background-color: green;
+	background-image: url('mapOfMiddleEarth.jpg');
+	background-size: 400px 300px;
 	margin-bottom: 0;
 	clear: both;
 }
@@ -63,7 +129,7 @@ a#despliega {
 	display: inline-block;
 	padding: 10px;
 	width: 380px;
-	background-color: blue;
+	background-color: #6f3131;
 	cursor: pointer;
 }
 
@@ -72,9 +138,53 @@ p#historialBatalla {
 	width: 400px;
 	height: 230px;
 	overflow: auto;
-	background-color: white;
+	background-color: #978148;
+	color: black;
 	margin-top: 0;
 
 	transition: height 0.2s;
 }
+
+
+table, td {
+	border: 1px black solid;
+}
+table#atributosCriatura {
+	display: inline-block;
+	text-align: center;
+	margin-bottom: 30px;
+	background-color: #6f3131;
+}
+table#atributosCriatura td {padding: 3px;}
+table#atributosCriatura td.type {text-align: left;}
+div.colorTropa {
+	width: 12px;
+	height: 12px;
+	border: 2px solid;
+	border-radius: 999px;
+	background-color: white;
+	display: inline-block;
+}
+
+div.colorTropa#colorHombre {
+	background-color: #d0a338;
+	border-color: #705003;
+}
+div.colorTropa#colorElfo {
+	background-color: #8aa42f;
+	border-color: #4c5e0d;
+}
+div.colorTropa#colorEnano {
+	background-color: #425cc9;
+	border-color: #132470;
+}
+div.colorTropa#colorHuargo {
+	background-color: #703908;
+	border-color: #3b1e04;
+}
+div.colorTropa#colorOrco {
+	background-color: #5c7211;
+	border-color: #2c3801;
+}
+
 
