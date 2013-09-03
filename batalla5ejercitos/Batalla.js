@@ -2,7 +2,7 @@
  * Constructor para la batalla.
  *
  * @author Jorge Martin Perez
- * @version 2.4
+ * @version 2.8
  */
 
 
@@ -10,11 +10,23 @@
 
 /**
  * Constructor para la batalla
- * @version 2.4
+ * @version 2.8
  *
+ * @param libreConstruye - array de objetos con claves
+ *                         'factoria' y 'tropas', donde 'tropas'
+ *                         es un Array con las cantidades de
+ *                         criaturas de cada tropa.
+ * @param oscuroConstruye - array de objetos con claves
+ *                         'factoria' y 'tropas', donde 'tropas'
+ *                         es un Array con las cantidades de
+ *                         criaturas de cada tropa.
+ * @param pImprime - nodo HTML en el que se imprime el historial
+ *                   de la batalla
+ * @param mensajeFin - mensaje de fin de batalla
+ * @param canvas
  * @return
  */
-function Batalla (libreConstruye,oscuroConstruye,pImprime,canvas) {
+function Batalla (libreConstruye,oscuroConstruye,pImprime,canvas,mensajeFin) {
 
 
 	/**
@@ -60,6 +72,7 @@ function Batalla (libreConstruye,oscuroConstruye,pImprime,canvas) {
 	var ejercitoLibre = null, ejercitoOscuro = null;
 	var libreConstruye = libreConstruye.slice(0);
 	var oscuroConstruye = oscuroConstruye.slice(0);
+	var mensajeFin = mensajeFin;
 	var pImprime = pImprime;
 	var ronda = 0;
 	var maxMin = this.maxMinTropas();
@@ -139,7 +152,7 @@ function Batalla (libreConstruye,oscuroConstruye,pImprime,canvas) {
 
 
 	/**
-	 * Imprime en el span del estado de la batalla el estado de
+	 * Imprime en el historial de la batalla el estado de
 	 * las tropas de ambos ejercitos.
 	 * @version 1.1
 	 *
@@ -166,24 +179,28 @@ function Batalla (libreConstruye,oscuroConstruye,pImprime,canvas) {
 
 
 	/**
-	 * Imprime en el span del estado de la batalla el estado de
-	 * las tropas de ambos ejercitos.
-	 * @version 1.1
+	 * Imprime en el historial de la batalla el ejercito ganador,
+	 * ademas de especificar el ganador y el perdedor al mensaje
+	 * de fin de batalla.
+	 * @version 1.2
 	 *
 	 * @return
 	 */
 	this.printVictoria = function () {
 		var libreVivo = !ejercitoLibre.estaAniquilado();
+		var ganador = (libreVivo) ? 'libre' : 'oscuro';
+		var perdedor = (!libreVivo) ? 'libre' : 'oscuro';
 
+		mensajeFin.setGanador(ganador);
+		mensajeFin.setPerdedor(perdedor);
 		pImprime.innerHTML += '<br/><br/>El ejercito ' + 
-		    ( (libreVivo) ? 'libre' : 'oscuro' ) + ' es el ' +
-		    'vencedor';
+		    ganador + ' es el vencedor';
 	}
 
 
 	/**
 	 * Se encarga de lanzar una ronda de ataques.
-	 * @version 1.0
+	 * @version 1.1
 	 *
 	 * @return
 	 */
@@ -207,17 +224,19 @@ function Batalla (libreConstruye,oscuroConstruye,pImprime,canvas) {
 			clearInterval(intervalo);
 			this.printRonda();
 			this.printVictoria();
+			mensajeFin.mostrar();
 		}
 	}
 
 
 	/**
 	 * Se encarga de realizar la simulacion de la batalla.
-	 * @version 1.3
+	 * @version 1.4
 	 *
 	 * @return
 	 */
 	this.simular = function () {
+		mensajeFin.ocultar();
 		this.crearEjercito('libre');
 		this.crearEjercito('oscuro');
 		var batalla = this;

@@ -2,7 +2,7 @@
 
 	<head>
 		<meta charset="utf-8" />
-		<title>Prototipos</title>
+		<title>Batalla de los 5 ejércitos</title>
 		<link rel="stylesheet" type="text/css" href="testPage.css">
 		<script type="text/javascript" src="oop.js"></script>
 
@@ -54,14 +54,17 @@
 			<span> 5 ejércitos</span>
 		</h1><br/>
 
-		<canvas id="battleScreen" width="400" height="300"></canvas><br/>
+		<div id="screenContainer">
+			<div id="mensajeContainer" class="oculto">
+				<div id="mensajeFin"><span>Fin de batalla</span></div>
+				<div id="ganador" class="resultado"><span></span></div>
+				<div id="perdedor" class="resultado"><span></span></div>
+			</div>
+			<canvas id="battleScreen" width="400" height="300"></canvas>
+		</div>
 		<a id="despliega" class="icon-angle-double-down">Historial</a><br/>
 		<p id="historialBatalla"></p>
 		<br/><br/>
-
-
-		
-
 
 
 		<div></div>
@@ -171,7 +174,7 @@
 				<ol>
 					<li>El atacante lanza un dado en el rango de su ataque.</li>
 					<li>El defensor lanza un dado en el rango de su defensa.</li>
-					<li>Al defensor se le aplican las heridas = (ataqueObtenido - defensaObtenida)</li>
+					<li>Si dado_ataca > dado_defiende, se le aplica 1 herida al defensor.</li>
 				</ol>
 			</p>
 		</section><br/>
@@ -189,5 +192,6 @@
 
 	<!-- GUI -->
 	<script type="text/javascript" src="excepciones/TropaVaciaEx.js"></script>
+	<script type="text/javascript" src="batalla5ejercitos/MensajeFinBatalla.js"></script>
 	<script type="text/javascript" src="batalla5ejercitos/GUI.js"></script>
 </html>

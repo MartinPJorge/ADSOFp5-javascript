@@ -1,3 +1,6 @@
+/* ----------------- */
+/* --- FONTELLO ---- */
+/* ----------------- */
 @font-face {
   font-family: 'fontello';
   src: url('font/fontello.eot?82809561');
@@ -90,13 +93,95 @@ h1 > div {
 }
 
 
+
+
+
 canvas {
 	background-image: url('mapOfMiddleEarth.jpg');
 	background-size: 400px 300px;
 	margin-bottom: 0;
 	clear: both;
 }
+/* ---------------------------------- */
+/* --- MENSAJE DE FIN DE BATALLA ---- */
+/* ---------------------------------- */
+div#mensajeContainer {
+	margin: 120px;
+	display: inline-block;
+	position: absolute;
+	width: 160px;
+	height: 60px;
+	color: white;
+}
+div#mensajeContainer.oculto {
+	visibility: hidden;
+}
+div#mensajeFin {
+	z-index: 50;
 
+	width: 140px;
+	height: 40px;
+	padding: 10px;
+
+	line-height: 40px;
+	text-align: center;
+	font-size: 21px;
+	
+	background-color: #6f3131;
+	box-shadow: 0 0 3px 2px black;
+
+	position: relative;
+	display: inline-block;
+
+	transition: transform 0.2s;
+	transform-origin: center;
+	-webkit-transition: -webkit-transform 0.2s;
+	-webkit-transform-origin: center;
+}
+div#mensajeContainer:hover > div#mensajeFin {
+	box-shadow: 0 0 8px 2px black;
+	transform: scale(1.1);
+	-webkit-transform: scale(1.1);
+}
+/* Resultados */
+div.resultado {
+	z-index: 1;
+	position: absolute;
+
+	margin-left: 10px;
+	margin-right: 10px;
+	width: 140px;
+	height: 25px;
+
+	box-shadow: 0 0 5px 0 black;
+}
+/* Ganador */
+div#mensajeContainer > div#ganador {
+	top: 0px;
+	background-color: #579c01;
+	transition: top 0.2s;
+	-webkit-transition: top 0.2s;
+}
+div#mensajeContainer:hover > div#ganador {
+	top: -27px;
+}
+/* Perdedor */
+div#mensajeContainer > div#perdedor {
+	bottom: 0px;
+	background-color: #9e3c00;
+	transition: bottom 0.2s;
+	-webkit-transition: bottom 0.2s;
+}
+div#mensajeContainer:hover > div#perdedor {
+	bottom: -27px;
+}
+
+
+
+
+/* ------------------------ */
+/* --- INPUT DE TROPAS ---- */
+/* ------------------------ */
 form {
 	display: inline-block;
 }
@@ -143,6 +228,11 @@ select.tropas > option {
 	padding-left: 4px;
 }
 
+
+
+/* ---------------------------------- */
+/* --- DESPLEGABLE DEL HISTORIAL ---- */
+/* ---------------------------------- */
 a#despliega {
 	display: inline-block;
 	padding: 10px;
@@ -161,38 +251,14 @@ p#historialBatalla {
 	margin-top: 0;
 
 	transition: height 0.2s;
+	-webkit-transition: height 0.2s;
 }
 
 
 
-
-section.explicacion {
-	display: inline-block;
-	width: 500px;
-	padding: 10px;
-	background-color: #6f3131;
-	margin: 10px;
-	position: relative;
-}
-section.explicacion > h2 {
-	text-decoration: none;
-}
-
-section > div.esquinita {
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: 0;
-	height: 0;
-	background: linear-gradient(45deg, #6f3131, #441b1b 60%, #441b1b);
-	transition: width 0.2s, height 0.2s;
-	-webkit-transition: width 0.2s, height 0.2s;
-}
-section:focus {outline: none;}
-
-
-
-
+/* ---------------------------------- */
+/* --- TABLA CON CARACTERÍSTICAS ---- */
+/* ---------------------------------- */
 table, td {
 	border: 1px black solid;
 }
@@ -235,3 +301,30 @@ div.colorTropa#colorOrco {
 }
 
 
+
+/* ---------------------------------- */
+/* --- CUADROS DE EXPLICACIÓN ------- */
+/* ---------------------------------- */
+section.explicacion {
+	display: inline-block;
+	width: 500px;
+	padding: 10px;
+	background-color: #6f3131;
+	margin: 10px;
+	position: relative;
+}
+section.explicacion > h2 {
+	text-decoration: none;
+}
+
+section > div.esquinita {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 0;
+	height: 0;
+	background: linear-gradient(45deg, #6f3131, #441b1b 60%, #441b1b);
+	transition: width 0.2s, height 0.2s;
+	-webkit-transition: width 0.2s, height 0.2s;
+}
+section:focus {outline: none;}

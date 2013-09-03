@@ -2,7 +2,7 @@
  * Constructor del distribuidor de bolas.
  *
  * @author Jorge Martin Perez
- * @version 2.1
+ * @version 2.2
  */
 
 
@@ -30,7 +30,7 @@ function paramRecta (x1,y1, x2,y2) {
 
 /**
  * Constructor del distribuidor de bolas.
- * @version 2.0
+ * @version 2.1
  *
  * @param canvas
  * @param minGuerreros - el minimo numero de guerreros (sirve
@@ -91,7 +91,7 @@ function Distribuidor(canvas,minGuerreros,maxGuerreros) {
 	 * los que trabajara el distribuidor. Ademas establece el 
 	 * parametro que indica cuanto disminuye el radio de la bola
 	 * cuando la tropa recibe una baja.
-	 * @version 1.3
+	 * @version 1.4
 	 *
 	 * @param paresBolaCantidad - [{'bola' : a,'cantidad' : 2},
 	 *                             {},{},...]
@@ -113,7 +113,9 @@ function Distribuidor(canvas,minGuerreros,maxGuerreros) {
 			var cantidad = paresBolaCantidad[i].cantidad;
 			var bola = paresBolaCantidad[i].bola;
 
-			var radio = (cantidad * recta.a) + recta.b;
+			var radio = Math.floor(
+				(cantidad * recta.a) + recta.b
+				);
 			if(radio < 8) radio = 8;
 			
 			bola.setRadio(radio);
@@ -227,8 +229,11 @@ function Distribuidor(canvas,minGuerreros,maxGuerreros) {
 		var esto = this;
 
 		// Si la bola no se puede meter, alargamos el canvas.
-		if(!this.sePuedePegarBola(bola))
+		if(!this.sePuedePegarBola(bola)) {
 			canvas.height = canvas.height + (4 * (bola.getRadio()+3))
+			canvas.style.backgroundSize = canvas.width + 'px ' +
+				canvas.height + 'px';
+		}
 
 		while(!pegada && (i < indiceBola)) {
 			var posiblesBordes = bolas[i].sePuedePegar(bola);

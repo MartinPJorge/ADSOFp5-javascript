@@ -1,5 +1,7 @@
 /**
- * Gestion de la interfaz del usuario,
+ * Gestion de la interfaz del usuario.
+ * Aquí se encuentra todo el Javascript encargado del input, y
+ * de las animaciones.
  *
  * @author Jorge Martin Perez
  * @version 1.1
@@ -7,7 +9,7 @@
 
 var pelea = null;
 
-
+// --- DOM variables ---
 var criaturasLibres = document.getElementById('criaturasLibres');
 var cantidadLibres = document.getElementById('cantidadLibres');
 var selectTropasLibres = document.getElementById('tropasLibres');
@@ -26,6 +28,10 @@ var startButton = document.getElementById('empezar');
 
 var canvas = document.getElementById('battleScreen');
 var ctx = canvas.getContext('2d');
+var finMsgContainer = document.getElementById('mensajeContainer');
+var finBatallaMsg = new MensajeFinBatalla(
+		finMsgContainer,canvas.height
+	);
 
 
 
@@ -132,6 +138,7 @@ function addTropaClickHandler (ev, tipoEjercito) {
 }
 
 
+// Especificamos listeners a los botones de anadir tropa.
 addTropaLibre.addEventListener('click', function (ev) {
 	try {
 		addTropaClickHandler(ev,'libre');
@@ -157,9 +164,6 @@ addTropaOscura.addEventListener('click', function (ev) {
 
 
 
-// --------------
-// --- BORRAR ---
-// --------------
 /**
  * Obtiene la tropa seleccionada para borrar.
  * @version 1.0
@@ -217,6 +221,7 @@ function borrarTropa (tipoEjercito) {
 }
 
 
+// Especificamos listeners a los botones de borrar tropa.
 borrarTropaLibre.addEventListener('click', function (ev) {
 	borrarTropa('libre');
 }, false);
@@ -226,12 +231,15 @@ borrarTropaOscura.addEventListener('click', function (ev) {
 
 
 
-
+// Especificamos el listener para el boton de empezar la batalla
 startButton.addEventListener('click', function (ev) {
 	ctx.clearRect(0,0,canvas.width,canvas.height);
-	selectTropasLibres.innerHTML = selectTropasOscuras.innerHTML = 
-	historialBatalla.innerHTML = '';
-	pelea = new Batalla(ejercitoLibre,ejercitoOscuro,historialBatalla,canvas);
+	selectTropasLibres.innerHTML =
+	    selectTropasOscuras.innerHTML = 
+	    historialBatalla.innerHTML = '';
+
+	pelea = new Batalla(ejercitoLibre,ejercitoOscuro,
+		historialBatalla,canvas, finBatallaMsg);
 
 	// Borramos los ejercitos
 	ejercitoLibre.length = 0;
@@ -242,7 +250,9 @@ startButton.addEventListener('click', function (ev) {
 
 
 
+// -----------------------------
 // --- Desplegable historial ---
+// -----------------------------
 despliegaHistorial.addEventListener('click', function (ev) {
 	if(historialBatalla.style.height != '230px')
 		historialBatalla.style.height = '230px';
@@ -250,7 +260,9 @@ despliegaHistorial.addEventListener('click', function (ev) {
 		historialBatalla.style.height = '0px';
 }, false);
 
+// --------------------------------
 // --- Secciones de explicacion ---
+// --------------------------------
 var secciones = document.querySelectorAll('section.explicacion');
 for(var i = 0; i < secciones.length; i++) {
 	secciones[i].addEventListener('focus', function (ev) {
