@@ -29,30 +29,16 @@ Antes de comenzar la batalla las tropas libres se sitúan a la izquierda del vis
   1. Se aplican las heridas a las criaturas libres.
   2. Se aplican las heridas a las criaturas oscuras.
   
+El ataque entre criaturas se realiza de la siguiente forma:
 ```JavaScript
-this.lanzarRonda = function () {
-		this.printRonda();
+this.atacar = function(oponente) {
+	var dado1 = Math.floor(Math.random()*6)+1;
+	var dado2 = Math.floor(Math.random()*6)+1;
 
-		// Realizar asalto
-		ejercitoLibre.atacar(ejercitoOscuro);
-		ejercitoOscuro.atacar(ejercitoLibre);
+	if(dado1 + ataque > dado2 + oponente.getDefensa())
+		oponente.addHeridas(1);
+}
 
-		// Aplicar daños
-		ejercitoLibre.aplicarHeridas();
-		ejercitoOscuro.aplicarHeridas();
-
-		ronda++;
-		var libreAniquilado = ejercitoLibre.estaAniquilado();
-		var oscuroAniquilado = ejercitoOscuro.estaAniquilado();
-		var finBatalla =  libreAniquilado || oscuroAniquilado;
-
-		if(finBatalla) {
-			clearInterval(intervalo);
-			this.printRonda();
-			this.printVictoria();
-			mensajeFin.mostrar();
-		}
-	}
 ```
 
 Fin de batalla
