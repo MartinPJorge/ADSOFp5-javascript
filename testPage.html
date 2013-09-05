@@ -4,6 +4,7 @@
 		<meta charset="utf-8" />
 		<title>Batalla de los 5 ejércitos</title>
 		<link rel="stylesheet" type="text/css" href="testPage.css">
+		<link rel="shortcut icon" type="image/png" href="favicon.png" />
 		<script type="text/javascript" src="oop.js"></script>
 
 
@@ -53,6 +54,8 @@
 			</div>
 			<span> 5 ejércitos</span>
 		</h1><br/>
+
+		<a href="#atributosCriatura" id="info">i</a>
 
 		<div id="screenContainer">
 			<div id="mensajeContainer" class="oculto">
@@ -159,35 +162,31 @@
 
 		<section tabindex="0" class="explicacion">
 			<div class="esquinita"></div>
-			<h2>¿Cómo lo ejecuto?</h2>
+			<h2>Creación de criaturas</h2>
 			<p>
-				En cada ejército seleccionamos las tropas a añadir, y acto seguido comenzamos la visualización. En caso de equivocarnos al añadir una tropa podemos borrarla. Cada tropa está representada por un círculo proporcional a los tamaños de las distintas tropas añadidas.
+				El ataque y defensa de cada criatura se decide al crearla. Es entonces cuando se le asigna un valor comprendido entre los especificados en la tabla de arriba.<br/>
+				Los elfos y orcos son <em>primeros nacidos</em>, y pueden curar las heridas recividas en ataque con unas probabilidades de 0.3 y 0.2, respectivamente.
 			</p>
 		</section><br/>
 
-		<section tabindex="0" class="explicacion">
+		<section tabindex="0" id="ataque" class="explicacion">
 			<div class="esquinita"></div>
-			<h2>¿Cómo funciona?</h2>
-			<p>
-				Los ataques se realizan de forma aleatoria. Primero a cada una de las tropas del ejército libre se le asigna de forma aleatoria otra tropa del ejército oscuro, y luego se realiza el ataque. Después el ejército oscuro realiza el ataque, y al final de la ronda se aplican las heridas recibidas por ambos ejércitos.<br/>
-				Para llevar a cabo el ataque de una criatura a otra se realiza lo siguiente:<br/>
-				<ol>
-					<li>El atacante lanza un dado en el rango de su ataque.</li>
-					<li>El defensor lanza un dado en el rango de su defensa.</li>
-					<li>Si dado_ataca > dado_defiende, se le aplica 1 herida al defensor.</li>
-				</ol>
-			</p>
-		</section><br/>
-
-		<section tabindex="0" class="explicacion">
-			<div class="esquinita"></div>
-			<h2>Características de criaturas</h2>
-			<p>
-				Como los elfos y orcos se les considera 'primeros nacidos', ambos tienen la habilidad de poder curar las heridas recibidas. Para ello determinamos si curan las heridas recibidas mediante un aleatorio entre 0 y 1. Elfo y orco se curan si el número es menor que 0.3 y 0.2, respectivamente.<br/>
-				En la tabla de arriba se muestran los atributos de cada criatura.
-			</p>
+			<h2>Funcionamiento de ataques</h2>
+			<ol>
+				<li>El ejérctito libre ataca al oscuro.</li>
+				<li>Cada tropa libre elige de forma totalmente aleatoria a otra tropa oscura a la que atacar.</li>
+				<li>Cada guerrero de la tropa libre elige de forma totalmente aleatoria a otro guerrero oscuro al que atacar.</li>
+				<li>Se realiza el ataque entre guerreros:
+					<ol>
+						<li>Dado atacante.</li>
+						<li>Dado defensor.</li>
+						<li>(ataque + dadoA) > (defensa + dadoD) => 1 herida al defensor.</li>
+					</ol>
+				</li>
+				<li>El ejército oscuro realiza el ataque.</li>
+				<li>Restamos a los puntos de vida las heridas recibidas.</li>
+			</ol>
 		</section>
-		
 	</body>	
 
 	<!-- GUI -->

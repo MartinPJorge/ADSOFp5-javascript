@@ -92,6 +92,23 @@ h1 > div {
 	top: 12px;
 }
 
+/* --- Info span --- */
+a#info {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background-color: #884e4e;
+	line-height: 50px;
+	text-decoration: none;
+	color: inherit;
+	font-size: 20px;
+}
+a#info:hover {
+	background-color: #9f6e6e;
+}
 
 
 
@@ -312,6 +329,9 @@ section.explicacion {
 	background-color: #6f3131;
 	margin: 10px;
 	position: relative;
+}
+section#ataque {
+	text-align: left;
 }
 section.explicacion > h2 {
 	text-decoration: none;
